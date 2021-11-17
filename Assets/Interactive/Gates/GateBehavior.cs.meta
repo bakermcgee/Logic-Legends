@@ -1,0 +1,27 @@
+fileFormatVersion: 2
+guid: 59756b5269c590e4d989c4ef249b0787
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences:
+  - andGate: {fileID: -4654099062056496725, guid: 28adb9f1ec12d0345b0a2589a5a69432, type: 3}
+  - nandGate: {fileID: 4918417187781901762, guid: 28adb9f1ec12d0345b0a2589a5a69432, type: 3}
+  - orGate: {fileID: -4216198193507529100, guid: 28adb9f1ec12d0345b0a2589a5a69432, type: 3}
+  - norGate: {fileID: 7600294796257198870, guid: 28adb9f1ec12d0345b0a2589a5a69432, type: 3}
+  - xorGate: {fileID: -8097313078666197810, guid: 28adb9f1ec12d0345b0a2589a5a69432, type: 3}
+  - node: {fileID: 8287603137530858648, guid: 28adb9f1ec12d0345b0a2589a5a69432, type: 3}
+  - inverter: {fileID: 7780943736261255721, guid: 28adb9f1ec12d0345b0a2589a5a69432, type: 3}
+  - battery: {fileID: -385938423482905336, guid: 28adb9f1ec12d0345b0a2589a5a69432, type: 3}
+  - ground: {fileID: 2207359170630948357, guid: 28adb9f1ec12d0345b0a2589a5a69432, type: 3}
+  - button: {fileID: 794139998002761734, guid: 28adb9f1ec12d0345b0a2589a5a69432, type: 3}
+  - buttonDn: {fileID: -2593309826959316935, guid: 28adb9f1ec12d0345b0a2589a5a69432, type: 3}
+  - swtch: {fileID: -622007765910109545, guid: 28adb9f1ec12d0345b0a2589a5a69432, type: 3}
+  - swtchOn: {fileID: -5852144805573919313, guid: 28adb9f1ec12d0345b0a2589a5a69432, type: 3}
+  - counter: {fileID: 3031598207668483863, guid: 28adb9f1ec12d0345b0a2589a5a69432, type: 3}
+  - timer: {fileID: 6661664209736550337, guid: 28adb9f1ec12d0345b0a2589a5a69432, type: 3}
+  - lit: {fileID: 563149034909824329, guid: 28adb9f1ec12d0345b0a2589a5a69432, type: 3}
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
