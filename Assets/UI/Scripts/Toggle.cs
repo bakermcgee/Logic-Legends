@@ -10,14 +10,19 @@ public class Toggle : MonoBehaviour
     // Called when the button is pressed
     public void OnButtonPress() {
 
-        toggled.SetActive(!toggled.activeInHierarchy);
+        try {
+            toggled.SetActive(!toggled.activeInHierarchy);
+        }
+        catch { }
         moverOn = !moverOn;
 
     }
 
     public void ForceOff() {
-
-        toggled.SetActive(true);
+        try {
+            toggled.SetActive(true);
+        }
+        catch { }
         moverOn = false;
 
     }

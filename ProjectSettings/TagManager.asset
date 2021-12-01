@@ -8,7 +8,7 @@ TagManager:
   - Default
   - TransparentFX
   - Ignore Raycast
-  - 
+  - Panel
   - Water
   - UI
   - 
@@ -46,6 +46,9 @@ TagManager:
     locked: 0
   - name: Logic
     uniqueID: 1439716575
+    locked: 0
+  - name: Text
+    uniqueID: 3541980129
     locked: 0
   - name: UI
     uniqueID: 3109949983

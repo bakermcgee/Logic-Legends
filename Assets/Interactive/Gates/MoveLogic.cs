@@ -10,10 +10,14 @@ public class MoveLogic : MonoBehaviour {
     bool clickedOn = false;
     bool canMove = false;
 
-    // Update is called once per frame
     void Update()
-    {
-        canMove = GameObject.Find("Move").GetComponent<Toggle>().moverOn;
+    {     
+
+        if (GameObject.Find("Play").GetComponent<PlayMode>().play) {
+            canMove = false;
+        } else {
+            canMove = GameObject.Find("Move").GetComponent<Toggle>().moverOn;
+        }
 
         if (canMove) {
             //checks if mouse is clicked on the object
@@ -25,7 +29,6 @@ public class MoveLogic : MonoBehaviour {
 
                 if (hit.collider == this.GetComponent<BoxCollider2D>()) {
 
-                    //print(hit.collider);
                     clickedOn = true;
 
                 }
