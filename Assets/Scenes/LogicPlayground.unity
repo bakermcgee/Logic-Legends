@@ -1363,6 +1363,7 @@ GameObject:
   - component: {fileID: 136113118}
   - component: {fileID: 136113117}
   - component: {fileID: 136113119}
+  - component: {fileID: 136113120}
   m_Layer: 5
   m_Name: Toolbelt
   m_TagString: Untagged
@@ -1458,6 +1459,18 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 2383.7666, y: 160.02902}
   m_EdgeRadius: 0
+--- !u!114 &136113120
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 136113115}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4b11316b93cda0943a388c162eda809f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &137951774
 GameObject:
   m_ObjectHideFlags: 0
@@ -12764,6 +12777,7 @@ MonoBehaviour:
   moveSpd: 0.1
   numCln: -1
   done: 1
+  clicked: 0
 --- !u!114 &1973437155
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -13571,3 +13585,20 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 5a347d955f2683c479d62de115bd8374, type: 3}
+--- !u!1 &5742191828458178000 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 5742191827377420920, guid: 5a347d955f2683c479d62de115bd8374, type: 3}
+  m_PrefabInstance: {fileID: 5742191828458177999}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &5742191828458178001
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5742191828458178000}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0c9846819ce2d0449ab3bcdc3a677ed7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

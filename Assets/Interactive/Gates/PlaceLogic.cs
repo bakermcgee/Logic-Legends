@@ -27,80 +27,37 @@ public class PlaceLogic : MonoBehaviour
     bool subOn = false;
     public int numCln = -1;
     public bool done = true;
+    public bool clicked = false;
 
     void Update()
     {
         cursorUpd();
-        //if(addOn) transform.position = new Vector3(GameObject.Find("Origin").transform.position.x, GameObject.Find("Origin").transform.position.y, 0f);
+        
         //allows for logic to be placed within editor
         if (addOn) {
          
-            //transform.position = Vector2.Lerp(transform.position, cursorPos, moveSpd);
-
             Vector2 cursor2Dpos = new Vector2(cursorPos.x, cursorPos.y);
             RaycastHit2D hit = Physics2D.Raycast(cursor2Dpos, Vector2.zero);
 
-            if (Input.GetMouseButtonDown(0) && hit.collider == null) {
+            if((PlayerPrefs.GetInt("MouseMode") == 1 ? true : false) && clicked == false) {
+                transform.position = Vector2.Lerp(transform.position, cursorPos, moveSpd);
+            }
 
+            //moves the logic gate object and calls cloneGate() when the user taps to place down logic 
+            if (Input.GetMouseButtonDown(0) && hit.collider == null) { 
+
+                clicked = true;
                 transform.position = Vector2.Lerp(transform.position, cursorPos, 1f);
-                Invoke("cloneGate", 0.3f);
-                //transform.position = cam.transform.position;
-                /*GameObject newGate = Instantiate(Gates);
-
-                newGate.AddComponent<MoveLogic>();
-                newGate.GetComponent<GateBehavior>().enabled = true;
-                Destroy(newGate.GetComponent<PlaceLogic>());
-
-                numCln += 1;
-                newGate.name = ("clone" + numCln);
-
-                gateClones.Add(newGate);
-
-                inp1.SetActive(false);
-                inp2.SetActive(false);
-                outp.SetActive(false);
-                reset.SetActive(false);
-
-                addOn = false;
-                gate.enabled = false;*/
+                Invoke("cloneGate", 0.1f);
 
             }
 
-                /*
-                //if tapped/clicked and there are no other objects in the way, the object is placed
-                if (Input.GetMouseButtonDown(0) && hit.collider == null) {
-
-                    addOn = false;
-                    gate.enabled = false;
-
-                    cursorUpd();
-                    transform.position = Vector2.Lerp(transform.position, cursorPos, 0.1f);
-                    GameObject newGate = Instantiate(Gates);
-
-                    newGate.AddComponent<MoveLogic>();
-                    newGate.GetComponent<GateBehavior>().enabled = true;
-                    Destroy(newGate.GetComponent<PlaceLogic>());
-
-                    numCln += 1;
-                    newGate.name = ("clone" + numCln);
-
-                    gateClones.Add(newGate);
-
-                    inp1.SetActive(false);
-                    inp2.SetActive(false);
-                    outp.SetActive(false);
-                    reset.SetActive(false);
-
-                }*/
-
-
-            }
+        }
 
         //allows for logic to be removed from the editor
         if (subOn) {
 
             cursorUpd();
-            transform.position = Vector2.Lerp(transform.position, cursorPos, moveSpd);
 
             Vector2 cursor2Dpos = new Vector2(cursorPos.x, cursorPos.y);
             RaycastHit2D hit = Physics2D.Raycast(cursor2Dpos, Vector2.zero);
@@ -126,16 +83,17 @@ public class PlaceLogic : MonoBehaviour
 
         addOn = true;
         transform.position = new Vector3(GameObject.Find("Origin").transform.position.x, GameObject.Find("Origin").transform.position.y, 0f);
-        //Gates.GetComponent<BoxCollider2D>().enabled = false; 
 
     }
 
+    //called if the eraser is on
     public void toggleErase() {
 
         subOn = !subOn;
 
     }
 
+    //called during certain events where needed
     public void forceOffErase() {
 
         subOn = false;
@@ -150,6 +108,7 @@ public class PlaceLogic : MonoBehaviour
 
     }
 
+    //instantiates a clone and configures the clone accordingly
     void cloneGate() {
 
         GameObject newGate = Instantiate(Gates);
@@ -170,6 +129,7 @@ public class PlaceLogic : MonoBehaviour
 
         addOn = false;
         gate.enabled = false;
+        clicked = false;
         
 
     }
@@ -203,67 +163,6 @@ public class PlaceLogic : MonoBehaviour
         numCln = data.numGates;
 
         StartCoroutine(cloneLoad(data));
-
-        /*for (int x = 0; x < data.wirePosS.GetLength(0); x++) {//loops to instantiate all wires
-
-            bool loop = true;
-            int y = 0;
-
-            GameObject outg = null;
-            GameObject ing = null;
-
-            while (loop) {//loops to find wire's output point
-
-                Vector3 tmpOut = new Vector3(data.wirePosS[x, 0], data.wirePosS[x, 1], data.wirePosS[x, 2]);
-                Vector3 tmpIn = new Vector3(data.wirePosE[x, 0], data.wirePosE[x, 1], data.wirePosE[x, 2]);
-
-                try {
-
-                    Vector3 outPosition = gateClones[y].transform.Find("Output")
-                        .gameObject.transform.position;
-
-                    if (tmpOut == outPosition) {
-
-                        loop = false;
-                        outg = gateClones[y].transform.Find("Output").gameObject;
-                        bool loop2 = true;
-                        int z = 0;
-
-                        while (loop2) {//loops to find wire's input point
-
-                            Vector3 inPosition1 = gateClones[z].transform.Find("Input1")
-                                .gameObject.transform.position;
-
-                            Vector3 inPosition2 = gateClones[z].transform.Find("Input2")
-                                .gameObject.transform.position;
-
-                            if (tmpIn == inPosition1) {
-
-                                ing = gateClones[z].transform.Find("Input1").gameObject;
-                                loop2 = false;
-
-                            } else if (tmpIn == inPosition2) {
-
-                                ing = gateClones[z].transform.Find("Input2").gameObject;
-                                loop2 = false;
-
-                            }
-
-                            z++;
-
-                        }
-
-                    }
-                }
-                catch { }
-
-                y++;
-
-            }
-            
-            if(outg != null) outg.GetComponent<PlaceWire>().loadWire(ing); //instantiates wire x
-
-        }*/
 
     }
 

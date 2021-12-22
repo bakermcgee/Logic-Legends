@@ -19,11 +19,6 @@ public class PlaceWire : MonoBehaviour
     Vector3 outpoint;
     Vector3 inpoint;
 
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
 
     // Update is called once per frame
     void Update() {
@@ -46,7 +41,7 @@ public class PlaceWire : MonoBehaviour
                 && hit.collider != null
                 && hit.collider.gameObject == this.gameObject) {
 
-                print("clicked");
+                //print("clicked");
                 clk = true;
                 outpoint = this.transform.position;
 
@@ -55,10 +50,10 @@ public class PlaceWire : MonoBehaviour
             if (!Input.GetMouseButtonDown(0) && clk) {
                 clk = false;
                 addOn = true;
-                print(addOn);
+                //print(addOn);
             }
 
-            if (Input.GetMouseButtonDown(0)) print(hit.collider);
+            //if (Input.GetMouseButtonDown(0)) print(hit.collider);
 
             if (Input.GetMouseButtonDown(0)
                 && addOn
@@ -87,7 +82,6 @@ public class PlaceWire : MonoBehaviour
                 wr.SetActive(true);
 
                 GameObject.Find("Logic Gates").GetComponent<TrackWires>().wires.Add(wr);
-                //print(this.transform.parent.gameObject.GetComponent<TrackWires>().wires);
 
             } else if (Input.GetMouseButtonDown(0) && addOn
                 && (hit.collider == null

@@ -9,6 +9,9 @@ EditorBuildSettings:
     path: 
     guid: 00000000000000000000000000000000
   - enabled: 1
+    path: Assets/Scenes/TitleScreen.unity
+    guid: 818a3d8ed836c7d43b161688d4af834e
+  - enabled: 1
     path: Assets/Scenes/LogicPlayground.unity
     guid: e739b9aa0df2a62429105787c8fe87a7
   m_configObjects: {}
