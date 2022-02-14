@@ -12,6 +12,7 @@ public class GateBehavior : MonoBehaviour
     GameObject txt;
     GameObject txt2;
     GameObject cntSlider;
+    GameObject vals;
 
     public Sprite andGate;
     public Sprite nandGate;
@@ -49,9 +50,15 @@ public class GateBehavior : MonoBehaviour
     Color defInp;
     Color defRes;
 
+    void Awake() {
+
+        vals = GameObject.Find("Values");
+
+    }
+
     void Start()
     {
-
+  
         txt = this.transform.GetChild(0).gameObject;
         txt2 = this.transform.GetChild(5).gameObject;
         defOut = this.transform.GetChild(3).gameObject.GetComponent<SpriteRenderer>().color;
@@ -65,7 +72,7 @@ public class GateBehavior : MonoBehaviour
         //sets up the logic gate that was placed to its proper format 
         if (this.GetComponent<SpriteRenderer>().sprite == counter || this.GetComponent<SpriteRenderer>().sprite == timer) {
 
-            Destroy(this.transform.GetChild(2).gameObject);
+            this.transform.GetChild(2).gameObject.SetActive(false);
             txt.SetActive(true);
             txt2.SetActive(true);
             this.transform.GetChild(6).gameObject.SetActive(true);
@@ -78,20 +85,20 @@ public class GateBehavior : MonoBehaviour
             || this.GetComponent<SpriteRenderer>().sprite == norGate
             || this.GetComponent<SpriteRenderer>().sprite == xorGate) {
 
-            Destroy(txt);
-            Destroy(this.transform.GetChild(4).gameObject);
-            Destroy(this.transform.GetChild(5).gameObject);
-            Destroy(this.transform.GetChild(6).gameObject);
+            txt.SetActive(false);
+            this.transform.GetChild(4).gameObject.SetActive(false);
+            this.transform.GetChild(5).gameObject.SetActive(false);
+            this.transform.GetChild(6).gameObject.SetActive(false);
 
         }
 
         if (this.GetComponent<SpriteRenderer>().sprite == node || this.GetComponent<SpriteRenderer>().sprite == inverter) {
 
-            Destroy(txt);
-            Destroy(this.transform.GetChild(2).gameObject);
-            Destroy(this.transform.GetChild(4).gameObject);
-            Destroy(this.transform.GetChild(5).gameObject);
-            Destroy(this.transform.GetChild(6).gameObject);
+            txt.SetActive(false);
+            this.transform.GetChild(2).gameObject.SetActive(false);
+            this.transform.GetChild(4).gameObject.SetActive(false);
+            this.transform.GetChild(5).gameObject.SetActive(false);
+            this.transform.GetChild(6).gameObject.SetActive(false);
 
         }
 
@@ -99,23 +106,23 @@ public class GateBehavior : MonoBehaviour
             || this.GetComponent<SpriteRenderer>().sprite == button
             || this.GetComponent<SpriteRenderer>().sprite == swtch) {
 
-            Destroy(txt);
-            Destroy(this.transform.GetChild(1).gameObject);
-            Destroy(this.transform.GetChild(2).gameObject);
-            Destroy(this.transform.GetChild(4).gameObject);
-            Destroy(this.transform.GetChild(5).gameObject);
-            Destroy(this.transform.GetChild(6).gameObject);
+            txt.SetActive(false);
+            this.transform.GetChild(1).gameObject.SetActive(false);
+            this.transform.GetChild(2).gameObject.SetActive(false);
+            this.transform.GetChild(4).gameObject.SetActive(false);
+            this.transform.GetChild(5).gameObject.SetActive(false);
+            this.transform.GetChild(6).gameObject.SetActive(false);
 
         }
 
         if (this.GetComponent<SpriteRenderer>().sprite == lit || this.GetComponent<SpriteRenderer>().sprite == ground) {
 
-            Destroy(txt);
-            Destroy(this.transform.GetChild(2).gameObject);
-            Destroy(this.transform.GetChild(3).gameObject);
-            Destroy(this.transform.GetChild(4).gameObject);
-            Destroy(this.transform.GetChild(5).gameObject);
-            Destroy(this.transform.GetChild(6).gameObject);
+            txt.SetActive(false);
+            this.transform.GetChild(2).gameObject.SetActive(false);
+            this.transform.GetChild(3).gameObject.SetActive(false);
+            this.transform.GetChild(4).gameObject.SetActive(false);
+            this.transform.GetChild(5).gameObject.SetActive(false);
+            this.transform.GetChild(6).gameObject.SetActive(false);
 
         }
 
@@ -138,11 +145,11 @@ public class GateBehavior : MonoBehaviour
 
             if (this.GetComponent<SpriteRenderer>().sprite == counter || this.GetComponent<SpriteRenderer>().sprite == timer) {
                 txt2.SetActive(true);
-                this.transform.Find("AddVal").gameObject.SetActive(true);
+                this.transform.GetChild(6).gameObject.SetActive(true);
             }
 
             try {
-                this.transform.Find("Output").gameObject.GetComponent<SpriteRenderer>().color = defOut;
+                this.transform.GetChild(3).gameObject.GetComponent<SpriteRenderer>().color = defOut;
             } catch { }
 
             if(this.GetComponent<SpriteRenderer>().sprite == counter) {
@@ -183,23 +190,23 @@ public class GateBehavior : MonoBehaviour
 
             if (this.GetComponent<SpriteRenderer>().sprite == counter || this.GetComponent<SpriteRenderer>().sprite == timer) {
                 txt2.SetActive(false);
-                this.transform.Find("AddVal").gameObject.SetActive(false);
+                this.transform.GetChild(6).gameObject.SetActive(false);
             }
 
             try {
                 if (outOn) {
 
-                    this.transform.Find("Output").gameObject.GetComponent<SpriteRenderer>().color = new Color(1f, 0.984f, 0.447f, 1f);
+                    this.transform.GetChild(3).gameObject.GetComponent<SpriteRenderer>().color = new Color(1f, 0.984f, 0.447f, 1f);
 
                 } else {
 
-                    this.transform.Find("Output").gameObject.GetComponent<SpriteRenderer>().color = defOut;
+                    this.transform.GetChild(3).gameObject.GetComponent<SpriteRenderer>().color = defOut;
 
                 }
             } catch { }
 
             try {
-                if (this.transform.Find("Input1").gameObject.GetComponent<SpriteRenderer>().color == new Color(1f, 0.984f, 0.447f, 1f)) {
+                if (this.transform.GetChild(1).gameObject.GetComponent<SpriteRenderer>().color == new Color(1f, 0.984f, 0.447f, 1f)) {
 
                     inp1On = true;
 
@@ -211,7 +218,7 @@ public class GateBehavior : MonoBehaviour
             } catch { }
 
             try {
-                if (this.transform.Find("Input2").gameObject.GetComponent<SpriteRenderer>().color == new Color(1f, 0.984f, 0.447f, 1f)) {
+                if (this.transform.GetChild(2).gameObject.GetComponent<SpriteRenderer>().color == new Color(1f, 0.984f, 0.447f, 1f)) {
 
                     inp2On = true;
 
@@ -224,7 +231,7 @@ public class GateBehavior : MonoBehaviour
             catch { }
 
             try {
-                if (this.transform.Find("Reset").gameObject.GetComponent<SpriteRenderer>().color == new Color(1f, 0.984f, 0.447f, 1f)) {
+                if (this.transform.GetChild(4).gameObject.GetComponent<SpriteRenderer>().color == new Color(1f, 0.984f, 0.447f, 1f)) {
 
                     resetOn = true;
 
@@ -545,38 +552,38 @@ public class GateBehavior : MonoBehaviour
 
             if(this.GetComponent<SpriteRenderer>().sprite == counter) {
 
-                if (hit.collider != null && hit.collider.gameObject == this.transform.Find("AddVal").gameObject && this.transform.Find("AddVal").gameObject.GetComponent<SpriteRenderer>().sprite == mOn) {
+                if (hit.collider != null && hit.collider.gameObject == this.transform.GetChild(6).gameObject && this.transform.GetChild(6).gameObject.GetComponent<SpriteRenderer>().sprite == mOn) {
 
-                    this.transform.Find("AddVal").gameObject.GetComponent<SpriteRenderer>().sprite = mOff;
-                    cntSlider = Instantiate(GameObject.Find("ValueMod"));
-                    cntSlider.transform.SetParent(GameObject.Find("Values").transform);
-                    cntSlider.transform.position = GameObject.Find("ValueMod").transform.position;
+                    this.transform.GetChild(6).gameObject.GetComponent<SpriteRenderer>().sprite = mOff;
+                    cntSlider = Instantiate(vals.transform.GetChild(0).gameObject);
+                    cntSlider.transform.SetParent(vals.transform);
+                    cntSlider.transform.position = vals.transform.GetChild(0).position;
                     cntSlider.transform.localScale = new Vector3(1f, 1f, 1f);
                     cntSlider.GetComponent<Image>().enabled = true;
                     cntSlider.transform.GetChild(0).gameObject.SetActive(true);
                     
                 } else if (hit.collider != null) {
 
-                    this.transform.Find("AddVal").gameObject.GetComponent<SpriteRenderer>().sprite = mOn;
+                    this.transform.GetChild(6).gameObject.GetComponent<SpriteRenderer>().sprite = mOn;
                     Destroy(cntSlider);
 
                 }
 
             } else if(this.GetComponent<SpriteRenderer>().sprite == timer) {
 
-                if (hit.collider != null && hit.collider.gameObject == this.transform.Find("AddVal").gameObject && this.transform.Find("AddVal").gameObject.GetComponent<SpriteRenderer>().sprite == mOn) {
+                if (hit.collider != null && hit.collider.gameObject == this.transform.GetChild(6).gameObject && this.transform.GetChild(6).gameObject.GetComponent<SpriteRenderer>().sprite == mOn) {
 
-                    this.transform.Find("AddVal").gameObject.GetComponent<SpriteRenderer>().sprite = mOff;
-                    cntSlider = Instantiate(GameObject.Find("ValueMod"));
-                    cntSlider.transform.SetParent(GameObject.Find("Values").transform);
-                    cntSlider.transform.position = GameObject.Find("ValueMod").transform.position;
+                    this.transform.GetChild(6).gameObject.GetComponent<SpriteRenderer>().sprite = mOff;
+                    cntSlider = Instantiate(vals.transform.GetChild(0).gameObject);
+                    cntSlider.transform.SetParent(vals.transform);
+                    cntSlider.transform.position = vals.transform.GetChild(0).position;
                     cntSlider.transform.localScale = new Vector3(1f, 1f, 1f);
                     cntSlider.GetComponent<Image>().enabled = true;
                     cntSlider.transform.GetChild(1).gameObject.SetActive(true);
 
                 } else if (hit.collider != null) {
 
-                    this.transform.Find("AddVal").gameObject.GetComponent<SpriteRenderer>().sprite = mOn;
+                    this.transform.GetChild(6).gameObject.GetComponent<SpriteRenderer>().sprite = mOn;
                     Destroy(cntSlider);
 
                 }
@@ -584,7 +591,7 @@ public class GateBehavior : MonoBehaviour
             }
         }
 
-        if(this.transform.Find("AddVal").gameObject.GetComponent<SpriteRenderer>().sprite == mOff) {
+        if(this.transform.GetChild(6).gameObject.GetComponent<SpriteRenderer>().sprite == mOff) {
 
             if (this.GetComponent<SpriteRenderer>().sprite == counter) {
                 
@@ -600,7 +607,7 @@ public class GateBehavior : MonoBehaviour
 
             if (playOn) {
 
-                this.transform.Find("AddVal").gameObject.GetComponent<SpriteRenderer>().sprite = mOn;
+                this.transform.GetChild(6).gameObject.GetComponent<SpriteRenderer>().sprite = mOn;
                 Destroy(cntSlider);
 
             }
