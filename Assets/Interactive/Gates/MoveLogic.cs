@@ -10,13 +10,23 @@ public class MoveLogic : MonoBehaviour {
     bool clickedOn = false;
     bool canMove = false;
 
+    public GameObject pl;
+    public GameObject mv;
+
+    void Start() {
+
+        pl = GameObject.Find("Play");
+        mv = GameObject.Find("Move");
+
+    }
+
     void Update()
     {     
 
-        if (GameObject.Find("Play").GetComponent<PlayMode>().play) {
+        if (pl.GetComponent<PlayMode>().play) {
             canMove = false;
         } else {
-            canMove = GameObject.Find("Move").GetComponent<Toggle>().moverOn;
+            canMove = mv.GetComponent<Toggle>().moverOn;
         }
 
         if (canMove) {

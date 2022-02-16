@@ -11493,10 +11493,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7a4dc0994f4c98d46869bbe058a7f115, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  lg: {fileID: 0}
   inp1: {fileID: 0}
   inp2: {fileID: 0}
   reset: {fileID: 0}
+  drw: {fileID: 1844912740}
 --- !u!1 &1822614133
 GameObject:
   m_ObjectHideFlags: 0
@@ -12652,6 +12652,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 59756b5269c590e4d989c4ef249b0787, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  pl: {fileID: 400325103}
+  dr: {fileID: 1844912740}
   andGate: {fileID: -4654099062056496725, guid: 28adb9f1ec12d0345b0a2589a5a69432, type: 3}
   nandGate: {fileID: 4918417187781901762, guid: 28adb9f1ec12d0345b0a2589a5a69432, type: 3}
   orGate: {fileID: -4216198193507529100, guid: 28adb9f1ec12d0345b0a2589a5a69432, type: 3}
@@ -12759,6 +12761,7 @@ MonoBehaviour:
   inp2: {fileID: 3737364}
   outp: {fileID: 1809206972}
   reset: {fileID: 560712797}
+  org: {fileID: 1001952378}
   sprites:
   - {fileID: -4654099062056496725, guid: 28adb9f1ec12d0345b0a2589a5a69432, type: 3}
   - {fileID: 4918417187781901762, guid: 28adb9f1ec12d0345b0a2589a5a69432, type: 3}

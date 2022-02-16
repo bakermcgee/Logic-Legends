@@ -19,6 +19,7 @@ public class PlaceLogic : MonoBehaviour
     public GameObject inp2;
     public GameObject outp;
     public GameObject reset;
+    public GameObject org;
 
     public Sprite[] sprites = new Sprite[14];
 
@@ -82,7 +83,7 @@ public class PlaceLogic : MonoBehaviour
     public void logicPicked() {
 
         addOn = true;
-        transform.position = new Vector3(GameObject.Find("Origin").transform.position.x, GameObject.Find("Origin").transform.position.y, 0f);
+        transform.position = new Vector3(org.transform.position.x, org.transform.position.y, 0f);
 
     }
 
@@ -244,14 +245,14 @@ public class PlaceLogic : MonoBehaviour
 
                 try {
 
-                    Vector3 outPosition = gateClones[y].transform.Find("Output")
+                    Vector3 outPosition = gateClones[y].transform.GetChild(3)
                         .gameObject.transform.position;
 
                     if (tmpOut == outPosition) {
 
                         
                         loop = false;
-                        outg = gateClones[y].transform.Find("Output").gameObject;
+                        outg = gateClones[y].transform.GetChild(3).gameObject;
                         bool loop2 = true;
                         int z = 0;
 
@@ -262,19 +263,19 @@ public class PlaceLogic : MonoBehaviour
                             Vector3 inPosition3 = new Vector3(0f, 0f, 0f);
                             
                             try {
-                                inPosition1 = gateClones[z].transform.Find("Input1")
+                                inPosition1 = gateClones[z].transform.GetChild(1)
                                     .gameObject.transform.position;
                             }
                             catch { }
 
                             try {
-                                inPosition2 = gateClones[z].transform.Find("Input2")
+                                inPosition2 = gateClones[z].transform.GetChild(2)
                                     .gameObject.transform.position;
                             }
                             catch { }
 
                             try {
-                                    inPosition3 = gateClones[z].transform.Find("Reset")
+                                    inPosition3 = gateClones[z].transform.GetChild(4)
                                     .gameObject.transform.position;
                             }
                             catch { }
@@ -283,19 +284,19 @@ public class PlaceLogic : MonoBehaviour
 
                             if (tmpIn == inPosition1) {
 
-                                ing = gateClones[z].transform.Find("Input1").gameObject;
+                                ing = gateClones[z].transform.GetChild(1).gameObject;
                                 loop2 = false;
                                 
 
                             } else if (tmpIn == inPosition2) {
 
-                                ing = gateClones[z].transform.Find("Input2").gameObject;
+                                ing = gateClones[z].transform.GetChild(2).gameObject;
                                 loop2 = false;
                                 
 
                             } else if (tmpIn == inPosition3) {
 
-                                ing = gateClones[z].transform.Find("Reset").gameObject;
+                                ing = gateClones[z].transform.GetChild(4).gameObject;
                                 loop2 = false;
                                 
 

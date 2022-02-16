@@ -14,6 +14,9 @@ public class GateBehavior : MonoBehaviour
     GameObject cntSlider;
     GameObject vals;
 
+    public GameObject pl;
+    public GameObject dr;
+
     public Sprite andGate;
     public Sprite nandGate;
     public Sprite orGate;
@@ -50,15 +53,10 @@ public class GateBehavior : MonoBehaviour
     Color defInp;
     Color defRes;
 
-    void Awake() {
-
-        vals = GameObject.Find("Values");
-
-    }
-
     void Start()
     {
-  
+
+        vals = GameObject.Find("Values");
         txt = this.transform.GetChild(0).gameObject;
         txt2 = this.transform.GetChild(5).gameObject;
         defOut = this.transform.GetChild(3).gameObject.GetComponent<SpriteRenderer>().color;
@@ -520,9 +518,9 @@ public class GateBehavior : MonoBehaviour
     //updates the box collider depending on if drawing wires or not. automatically true if playmode is on
     void boxUpd() {
 
-        playOn = GameObject.Find("Play").GetComponent<PlayMode>().play;
+        playOn = pl.GetComponent<PlayMode>().play;
         try { 
-            bool draw = GameObject.Find("Draw").GetComponent<Toggle>().moverOn;
+            bool draw = dr.GetComponent<Toggle>().moverOn;
             if (draw) {
 
                 this.GetComponent<BoxCollider2D>().enabled = false;

@@ -6,10 +6,12 @@ public class PlaceWire : MonoBehaviour
 {
     private Vector3 cursorPos;
 
-    public GameObject lg;
+    
+    static GameObject lg;
     public GameObject inp1;
     public GameObject inp2;
     public GameObject reset;
+    public GameObject drw;
 
     //public float moveSpd = 0.1f;
     bool drawMode = false;
@@ -20,11 +22,17 @@ public class PlaceWire : MonoBehaviour
     Vector3 inpoint;
 
 
+    void Start() {
+
+        lg = GameObject.Find("Logic Gates");
+
+    }
+
     // Update is called once per frame
     void Update() {
 
         try {
-            drawMode = GameObject.Find("Draw").GetComponent<Toggle>().moverOn;
+            drawMode = drw.GetComponent<Toggle>().moverOn;
         } catch {
             drawMode = false;
         }
@@ -81,7 +89,7 @@ public class PlaceWire : MonoBehaviour
                 wr.GetComponent<WireBehavior>().endp = tmp;
                 wr.SetActive(true);
 
-                GameObject.Find("Logic Gates").GetComponent<TrackWires>().wires.Add(wr);
+                lg.GetComponent<TrackWires>().wires.Add(wr);
 
             } else if (Input.GetMouseButtonDown(0) && addOn
                 && (hit.collider == null
@@ -115,7 +123,7 @@ public class PlaceWire : MonoBehaviour
         wr.GetComponent<WireBehavior>().endp = tmp;
         wr.SetActive(true);
 
-        GameObject.Find("Logic Gates").GetComponent<TrackWires>().wires.Add(wr);
+        lg.GetComponent<TrackWires>().wires.Add(wr);
 
     }
 
