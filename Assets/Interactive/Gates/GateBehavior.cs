@@ -66,6 +66,7 @@ public class GateBehavior : MonoBehaviour
         this.GetComponent<SpriteRenderer>().color = new Color(1f, 1f, 1f, 1f);
         this.GetComponent<SpriteRenderer>().enabled = true;
         this.GetComponent<BoxCollider2D>().enabled = true;
+        txt2.GetComponent<TextMeshPro>().text = ("" + goal);
 
         //sets up the logic gate that was placed to its proper format 
         if (this.GetComponent<SpriteRenderer>().sprite == counter || this.GetComponent<SpriteRenderer>().sprite == timer) {
@@ -540,7 +541,7 @@ public class GateBehavior : MonoBehaviour
 
     }
 
-    void valUpd() {
+    void valUpd() {//updates the counter/timer max values
 
 
         if (Input.GetMouseButtonDown(0)) {
@@ -548,7 +549,7 @@ public class GateBehavior : MonoBehaviour
             Vector2 cursor2Dpos = new Vector2(cursorPos.x, cursorPos.y);
             RaycastHit2D hit = Physics2D.Raycast(cursor2Dpos, Vector2.zero);
 
-            if(this.GetComponent<SpriteRenderer>().sprite == counter) {
+            if(this.GetComponent<SpriteRenderer>().sprite == counter) {//instaniates a value slider if the component is a counter/timer and the hit collider detects the modify button
 
                 if (hit.collider != null && hit.collider.gameObject == this.transform.GetChild(6).gameObject && this.transform.GetChild(6).gameObject.GetComponent<SpriteRenderer>().sprite == mOn) {
 
