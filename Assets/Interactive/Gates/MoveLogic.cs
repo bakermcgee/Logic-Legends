@@ -9,14 +9,18 @@ public class MoveLogic : MonoBehaviour {
     public float moveSpd = 0.1f;
     bool clickedOn = false;
     bool canMove = false;
+    bool canFlip = false;
+    bool flipped = false;
 
     public GameObject pl;
     public GameObject mv;
+    public GameObject fl;
 
     void Start() {
 
         pl = GameObject.Find("Play");
         mv = GameObject.Find("Move");
+        fl = GameObject.Find("Flip");
 
     }
 
@@ -25,8 +29,10 @@ public class MoveLogic : MonoBehaviour {
 
         if (pl.GetComponent<PlayMode>().play) {
             canMove = false;
+            canFlip = false;
         } else {
             canMove = mv.GetComponent<Toggle>().moverOn;
+            canFlip = fl.GetComponent<Toggle>().moverOn;
         }
 
         if (canMove) {
@@ -62,6 +68,31 @@ public class MoveLogic : MonoBehaviour {
 
             }
         }
+
+        if (canFlip) {
+            //checks if mouse is clicked on the object
+            if (Input.GetMouseButtonDown(0)) {
+
+                cursorUpd();
+                Vector2 cursor2Dpos = new Vector2(cursorPos.x, cursorPos.y);
+                RaycastHit2D hit = Physics2D.Raycast(cursor2Dpos, Vector2.zero);
+
+                if (hit.collider == this.GetComponent<BoxCollider2D>() && !flipped) {
+
+                    this.transform.localScale = new Vector3(-1, 1, 1);
+                    flipped = true;
+
+                } else if (hit.collider == this.GetComponent<BoxCollider2D>() && flipped) {
+
+                    this.transform.localScale = new Vector3(1, 1, 1);
+                    flipped = false;
+
+                }
+
+            }
+
+        }
+
     }
 
     //updates cursor position
