@@ -10,7 +10,7 @@ public class MoveLogic : MonoBehaviour {
     bool clickedOn = false;
     bool canMove = false;
     bool canFlip = false;
-    bool flipped = false;
+    public bool flipped = false;
 
     public GameObject pl;
     public GameObject mv;

@@ -6,6 +6,7 @@ using UnityEngine;
 public class EditorData {
     public string[] gateName;
     public int[] cntGoal;
+    public bool[] flp;
     public int numGates;
     public float[,] position;
     public float[,] wirePosS;
@@ -19,6 +20,7 @@ public class EditorData {
         position = readPosition(gates);
         wirePosS = readWrPosS(wr);
         wirePosE = readWrPosE(wr);
+        flp = readFlp(gates);
 
     }
 
@@ -51,6 +53,7 @@ public class EditorData {
 
         return tmp;
     }
+
 
     float[,] readPosition(PlaceLogic gates) {
 
@@ -104,6 +107,21 @@ public class EditorData {
 
         return tmp;
 
+    }
+
+    bool[] readFlp(PlaceLogic gates) {
+
+        bool[] tmp = new bool[gates.gateClones.Count];
+        int c = 0;
+
+        foreach (var i in gates.gateClones) {
+
+            tmp[c] = i.GetComponent<MoveLogic>().flipped;
+            c++;
+        
+        }
+
+        return tmp;
     }
 
 }

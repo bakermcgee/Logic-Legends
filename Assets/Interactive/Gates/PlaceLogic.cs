@@ -194,7 +194,7 @@ public class PlaceLogic : MonoBehaviour
             reset.SetActive(true);
 
             Gates.transform.position = new Vector3(data.position[x, 0], data.position[x, 1], data.position[x, 2]);
-            print(new Vector3(data.position[x, 0], data.position[x, 1], data.position[x, 2]));
+            //print(new Vector3(data.position[x, 0], data.position[x, 1], data.position[x, 2]));            
 
             yield return new WaitForSeconds(0.1f);
 
@@ -202,6 +202,16 @@ public class PlaceLogic : MonoBehaviour
 
             gate.AddComponent<MoveLogic>();
             gate.transform.position = new Vector3(data.position[x, 0], data.position[x, 1], data.position[x, 2]);
+
+            try {
+                if (data.flp[x]) {
+                    gate.transform.localScale = new Vector3(-1, 1, 1);
+                    gate.GetComponent<MoveLogic>().flipped = true;
+                }
+            }
+            catch {
+                print("old save");
+            }
 
             gate.GetComponent<GateBehavior>().enabled = true;
             gate.GetComponent<GateBehavior>().goal = data.cntGoal[x];
