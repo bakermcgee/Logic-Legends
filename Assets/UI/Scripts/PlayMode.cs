@@ -17,7 +17,7 @@ public class PlayMode : MonoBehaviour
         play = !play;
 
         if (play) {
-            this.gameObject.GetComponent<Image>().color = new Color(1f, 0.1f, 0.3f, 1f);
+            this.gameObject.GetComponent<Image>().color = new Color(0.353f, 0.353f, 0.353f, 1f);
         } else {
             this.gameObject.GetComponent<Image>().color = new Color(1f, 1f, 1f, 1f);
         }
