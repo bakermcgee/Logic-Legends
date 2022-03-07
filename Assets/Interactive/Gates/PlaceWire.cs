@@ -87,6 +87,7 @@ public class PlaceWire : MonoBehaviour
                 wr.AddComponent<WireBehavior>();
                 wr.GetComponent<WireBehavior>().orig = this.gameObject;
                 wr.GetComponent<WireBehavior>().endp = tmp;
+                wr.GetComponent<WireBehavior>().lgi = lg;
                 wr.SetActive(true);
 
                 lg.GetComponent<TrackWires>().wires.Add(wr);
@@ -121,6 +122,7 @@ public class PlaceWire : MonoBehaviour
         wr.AddComponent<WireBehavior>();
         wr.GetComponent<WireBehavior>().orig = this.gameObject;
         wr.GetComponent<WireBehavior>().endp = tmp;
+        wr.GetComponent<WireBehavior>().lgi = lg;
         wr.SetActive(true);
 
         lg.GetComponent<TrackWires>().wires.Add(wr);

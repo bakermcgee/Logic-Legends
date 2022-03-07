@@ -27,6 +27,7 @@ public class PlaceLogic : MonoBehaviour
     bool addOn = false;
     bool subOn = false;
     public int numCln = -1;
+    public int nameCln = -1;
     public bool done = true;
     public bool clicked = false;
 
@@ -73,6 +74,7 @@ public class PlaceLogic : MonoBehaviour
 
                 gateClones.Remove(hit.collider.gameObject);
                 Destroy(hit.collider.gameObject);
+                numCln -= 1;
 
             }
 
@@ -119,7 +121,8 @@ public class PlaceLogic : MonoBehaviour
         Destroy(newGate.GetComponent<PlaceLogic>());
 
         numCln += 1;
-        newGate.name = ("clone" + numCln);
+        nameCln += 1;
+        newGate.name = ("clone" + nameCln);
 
         gateClones.Add(newGate);
 
@@ -141,15 +144,24 @@ public class PlaceLogic : MonoBehaviour
 
     }
 
-    public void LoadGates() {
+    public void ClearScreen() {
 
-        EditorData data = SaveData.Load();
-        
-        if(gateClones.Count > 0) {//destroys all gates in case loading while in editor
-            foreach(GameObject g in gateClones) {
+        if (gateClones.Count > 0) {//destroys all gates in case loading while in editor
+            foreach (GameObject g in gateClones) {
                 Destroy(g);
             }
         }
+        gateClones = new List<GameObject>();
+        numCln = -1;
+        nameCln = -1;
+
+    }
+
+    public void LoadGates() {
+
+        EditorData data = SaveData.Load();
+
+        ClearScreen();
 
         gateClones = new List<GameObject>();
 
@@ -162,6 +174,11 @@ public class PlaceLogic : MonoBehaviour
         this.GetComponent<TrackWires>().wires = new List<GameObject>();
 
         numCln = data.numGates;
+
+        try {
+            nameCln = data.nameGates;
+        }
+        catch { print("older save file"); }
 
         StartCoroutine(cloneLoad(data));
 

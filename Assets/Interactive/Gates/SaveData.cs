@@ -18,7 +18,7 @@ public class SaveData : MonoBehaviour
             FileStream fileStream = new FileStream(path, FileMode.OpenOrCreate);
 
             EditorData data = new EditorData(gates.GetComponent<PlaceLogic>(), gates.GetComponent<TrackWires>());
-
+            print("data collected succesfully");
             formatter.Serialize(fileStream, data);
             fileStream.Close();
         } catch {

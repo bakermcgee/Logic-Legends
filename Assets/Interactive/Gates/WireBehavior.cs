@@ -7,6 +7,7 @@ public class WireBehavior : MonoBehaviour
 
     public GameObject orig;
     public GameObject endp;
+    public GameObject lgi;
     Vector3 defOrg;
     Vector3 defEnd;
     Color defEndC;
@@ -52,6 +53,7 @@ public class WireBehavior : MonoBehaviour
             }
         }
         catch {
+            lgi.GetComponent<TrackWires>().wires.Remove(this.gameObject);
             Destroy(this.gameObject);
         }
     }

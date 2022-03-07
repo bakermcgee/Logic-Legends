@@ -8,6 +8,7 @@ public class EditorData {
     public int[] cntGoal;
     public bool[] flp;
     public int numGates;
+    public int nameGates;
     public float[,] position;
     public float[,] wirePosS;
     public float[,] wirePosE;
@@ -21,6 +22,7 @@ public class EditorData {
         wirePosS = readWrPosS(wr);
         wirePosE = readWrPosE(wr);
         flp = readFlp(gates);
+        nameGates = gates.nameCln;
 
     }
 
