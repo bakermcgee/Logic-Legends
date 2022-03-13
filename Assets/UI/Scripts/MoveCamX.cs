@@ -7,7 +7,7 @@ public class MoveCamX : MonoBehaviour
     public float dragSpeed;
     private Vector3 dragOrigin;
     private Vector3 cursorPos;
-    RaycastHit2D hit;
+    public RaycastHit2D hit;
 
     public bool res = false;
     public bool restart = false;

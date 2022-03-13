@@ -6630,7 +6630,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 1920518681}
         m_TargetAssemblyTypeName: NextScene, Assembly-CSharp
-        m_MethodName: NewCirc
+        m_MethodName: TutorialMode
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}

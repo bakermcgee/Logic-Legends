@@ -8,6 +8,8 @@ public class PrepareLevels : MonoBehaviour
     public bool tutorMode;
     public int tutorLevel;
 
+    public GameObject lvlUI;
+
     // Start is called before the first frame update
     void Start() {
         
@@ -15,13 +17,15 @@ public class PrepareLevels : MonoBehaviour
 
             tutorMode = true;
             UpdLevel();
-            
+            lvlUI.SetActive(true);
+
 
         } else {
 
             tutorMode = false;
 
         }
+
     }
 
     void UpdLevel() {
