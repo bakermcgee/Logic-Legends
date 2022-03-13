@@ -36,8 +36,20 @@ public class NextScene : MonoBehaviour {
 
     public void NewCirc() {
 
+        bool tutorMode = false;
+        PlayerPrefs.SetInt("TutorMode", tutorMode ? 1 : 0);
+        PlayerPrefs.Save();
         SceneManager.LoadScene(scn);
     
+    }
+
+    public void TutorialMode() {
+
+        bool tutorMode = true;
+        PlayerPrefs.SetInt("TutorMode", tutorMode ? 1 : 0);
+        PlayerPrefs.Save();
+        SceneManager.LoadScene(scn);
+
     }
 
     public void ToggleDark() {
