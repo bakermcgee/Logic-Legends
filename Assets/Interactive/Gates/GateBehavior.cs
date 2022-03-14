@@ -41,13 +41,14 @@ public class GateBehavior : MonoBehaviour
     bool resetOn = false;
     bool outOn = false;
     bool toggle = false;
+    public bool perma;
 
     int count = 0;
     float timed = 0;
     int sec = 0;
     public int goal = 0;
 
-    bool playOn = false;
+    public bool playOn = false;
 
     Color defOut;
     Color defInp;
@@ -65,7 +66,11 @@ public class GateBehavior : MonoBehaviour
 
         this.GetComponent<SpriteRenderer>().color = new Color(1f, 1f, 1f, 1f);
         this.GetComponent<SpriteRenderer>().enabled = true;
-        this.GetComponent<BoxCollider2D>().enabled = true;
+        if (!perma) {
+            this.GetComponent<BoxCollider2D>().enabled = true;
+        } else {
+            this.GetComponent<BoxCollider2D>().enabled = false;
+        }
         txt2.GetComponent<TextMeshPro>().text = ("" + goal);
 
         //sets up the logic gate that was placed to its proper format 
@@ -526,7 +531,7 @@ public class GateBehavior : MonoBehaviour
 
                 this.GetComponent<BoxCollider2D>().enabled = false;
 
-            } else {
+            } else if(!perma) {
 
                 this.GetComponent<BoxCollider2D>().enabled = true;
 
@@ -537,6 +542,8 @@ public class GateBehavior : MonoBehaviour
 
             this.GetComponent<BoxCollider2D>().enabled = true;
 
+        } else if (perma) {
+            this.GetComponent<BoxCollider2D>().enabled = false;
         }
 
     }

@@ -138,6 +138,37 @@ public class PlaceLogic : MonoBehaviour
 
     }
 
+    void clonePermaGate() {
+
+        inp1.SetActive(true);
+        inp2.SetActive(true);
+        outp.SetActive(true);
+        reset.SetActive(true);
+
+        GameObject newGate = Instantiate(Gates);
+
+        newGate.GetComponent<GateBehavior>().enabled = true;
+        newGate.GetComponent<GateBehavior>().perma = true;
+        newGate.GetComponent<BoxCollider2D>().enabled = false;
+        Destroy(newGate.GetComponent<PlaceLogic>());
+        
+        numCln += 1;
+        nameCln += 1;
+        newGate.name = ("clone" + nameCln);
+
+        gateClones.Add(newGate);
+
+        inp1.SetActive(false);
+        inp2.SetActive(false);
+        outp.SetActive(false);
+        reset.SetActive(false);
+
+        addOn = false;
+        gate.enabled = false;
+        clicked = false;
+
+    }
+
     public void SaveGates() {
 
         SaveData.Save(this.gameObject);
@@ -367,7 +398,7 @@ public class PlaceLogic : MonoBehaviour
 
     }
 
-    void movePoints() {
+    public void movePoints() {
 
         float xPos = Gates.transform.position.x;
         float yPos = Gates.transform.position.y;
