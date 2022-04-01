@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "29041962553",
+    "project_id": "logiclegend-581c7",
+    "storage_bucket": "logiclegend-581c7.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:29041962553:android:f05dfc5ef9222dae3e67e8",
+        "android_client_info": {
+          "package_name": "com.BakersBrigade.LogicLegends"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "29041962553-ktokc0abint848if57ckpcgsa7c2smsv.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCcbABm45gAputE1qUu5sRukb0P-ApQmXI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "29041962553-ktokc0abint848if57ckpcgsa7c2smsv.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
