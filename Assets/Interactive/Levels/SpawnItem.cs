@@ -7,6 +7,7 @@ public class SpawnItem : MonoBehaviour
 
     public GameObject gates;
     public GameObject nextOne;
+
     public int sprt;
     int cnt;
     bool popped;
@@ -36,4 +37,5 @@ public class SpawnItem : MonoBehaviour
             popped = true;
         }
     }
+
 }
