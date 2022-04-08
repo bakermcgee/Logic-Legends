@@ -565,10 +565,10 @@ TextureImporter:
       name: LGs_UI_19
       rect:
         serializedVersion: 2
-        x: 749
-        y: 56
-        width: 88
-        height: 126
+        x: 724
+        y: 51
+        width: 153
+        height: 152
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}

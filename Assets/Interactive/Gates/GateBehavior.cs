@@ -33,6 +33,8 @@ public class GateBehavior : MonoBehaviour
     public Sprite counter;
     public Sprite timer;
     public Sprite lit;
+    public Sprite lOn;
+    public Sprite lOff;
     public Sprite mOn;
     public Sprite mOff;
 
@@ -504,10 +506,12 @@ public class GateBehavior : MonoBehaviour
         if (inp1On) {
 
             this.GetComponent<Light2D>().enabled = true;
+            //this.GetComponent<SpriteRenderer>().sprite = lOn;
 
         } else {
 
             this.GetComponent<Light2D>().enabled = false;
+            this.GetComponent<SpriteRenderer>().sprite = lOff;
 
         } 
 

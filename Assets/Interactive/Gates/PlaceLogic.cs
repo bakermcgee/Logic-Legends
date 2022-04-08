@@ -473,7 +473,7 @@ public class PlaceLogic : MonoBehaviour
 
         } else if (Gates.GetComponent<SpriteRenderer>().sprite == sprites[13]) {
 
-            inp1.transform.position = new Vector3((xPos - 0.8f), (yPos - 0.9f), 0);
+            inp1.transform.position = new Vector3((xPos - 0.8f), (yPos - 0.78f), 0);
 
         }
 

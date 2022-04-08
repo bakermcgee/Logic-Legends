@@ -153,7 +153,7 @@ public class SelectLogic : MonoBehaviour
 
             float xPos = lg.transform.position.x;
             float yPos = lg.transform.position.y;
-            inp1.transform.position = new Vector3((xPos - 0.8f), (yPos - 0.9f), 0);
+            inp1.transform.position = new Vector3((xPos - 0.8f), (yPos - 0.78f), 0);
             i2 = false;
             op = false;
             rs = false;

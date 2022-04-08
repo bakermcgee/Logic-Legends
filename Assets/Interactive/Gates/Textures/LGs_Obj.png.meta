@@ -59,6 +59,9 @@ TextureImporter:
   - first:
       213: 563149034909824329
     second: LGs_Obj_18
+  - first:
+      213: 8528032894939597666
+    second: LGs_Obj_19
   externalObjects: {}
   serializedVersion: 11
   mipmaps:
@@ -436,10 +439,10 @@ TextureImporter:
       name: LGs_Obj_13
       rect:
         serializedVersion: 2
-        x: 1208
+        x: 1215
         y: 234
         width: 88
-        height: 126
+        height: 121
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -541,10 +544,10 @@ TextureImporter:
       name: LGs_Obj_18
       rect:
         serializedVersion: 2
-        x: 749
-        y: 56
-        width: 88
-        height: 126
+        x: 751
+        y: 55
+        width: 90
+        height: 121
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -554,6 +557,27 @@ TextureImporter:
       bones: []
       spriteID: 94577654015b0d700800000000000000
       internalID: 563149034909824329
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: LGs_Obj_19
+      rect:
+        serializedVersion: 2
+        x: 953
+        y: 42
+        width: 150
+        height: 152
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 26b88b70cb8a95670800000000000000
+      internalID: 8528032894939597666
       vertices: []
       indices: 
       edges: []
