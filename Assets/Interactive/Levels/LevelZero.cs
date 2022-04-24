@@ -12,11 +12,23 @@ public class LevelZero : MonoBehaviour
     public GameObject cam;
     public GameObject flip;
     public GameObject eraser;
-    
+    public GameObject tb;
+    public GameObject wa;
+
     // Start sets up variable defaults
     void Start()
     {
-        lvlState = 0;
+        if (PlayerPrefs.GetInt("TutorLevel") == 0) {
+            lvlState = 0;
+            tb.SetActive(true);
+        } else {
+            wa.SetActive(false);
+        }
+    }
+
+    public void restart() {
+        ToPicking();
+        tb.SetActive(true);
     }
 
     // Update checks for which lvlState the player is on
@@ -141,8 +153,11 @@ public class LevelZero : MonoBehaviour
     public void ToEnd() {
 
         lvlState = 8;
+        PlayerPrefs.SetInt("TutorLevel", 1);
+        PlayerPrefs.Save();
         this.gameObject.transform.GetChild(9).gameObject.SetActive(true);
         cam.transform.position = new Vector3(0, 0, -10);
+        tb.SetActive(false);
         blockers.transform.GetChild(0).gameObject.SetActive(true);
         blockers.transform.GetChild(9).gameObject.SetActive(true);
 

@@ -15,7 +15,7 @@ public class LevelOne : MonoBehaviour
     public GameObject tbB;
 
     // Start sets up variable defaults
-    void Start() {
+    /*void Start() {
         lvlState = 0;
         this.gameObject.transform.GetChild(1).gameObject.SetActive(true);
         blockers.transform.GetChild(3).gameObject.SetActive(false);
@@ -28,7 +28,7 @@ public class LevelOne : MonoBehaviour
         circuit2.transform.GetChild(1).gameObject.SetActive(false);
         circuit2.transform.GetChild(2).gameObject.SetActive(false);
         tbB.SetActive(false);
-    }
+    }*/
 
     // Update checks for which lvlState the player is on
     void Update() {
@@ -112,6 +112,7 @@ public class LevelOne : MonoBehaviour
         circuit1.SetActive(false);
         tbA.SetActive(false);
         circuit2.SetActive(true);
+        circuit2.transform.GetChild(0).gameObject.GetComponent<SpawnItem>().spawn();
         tbB.SetActive(true);
         blockers.transform.GetChild(3).gameObject.SetActive(false);
     }
@@ -123,6 +124,25 @@ public class LevelOne : MonoBehaviour
 
     void ToEnd() {
         lvlState = 6;
+        gates.GetComponent<PlaceLogic>().ClearScreen();
+        tbB.SetActive(false);
+        circuit2.SetActive(false);
         this.gameObject.transform.GetChild(7).gameObject.SetActive(true);
+    }
+
+    public void restart() {
+        lvlState = 0;
+        this.gameObject.transform.GetChild(1).gameObject.SetActive(true);
+        blockers.transform.GetChild(3).gameObject.SetActive(false);
+        lvl1.SetActive(true);
+        circuit1.SetActive(true);
+        circuit1.transform.GetChild(1).gameObject.SetActive(false);
+        circuit1.transform.GetChild(2).gameObject.SetActive(false);
+        circuit1.transform.GetChild(0).gameObject.GetComponent<SpawnItem>().spawn();
+        tbA.SetActive(true);
+        circuit2.SetActive(false);
+        circuit2.transform.GetChild(1).gameObject.SetActive(false);
+        circuit2.transform.GetChild(2).gameObject.SetActive(false);
+        tbB.SetActive(false);
     }
 }

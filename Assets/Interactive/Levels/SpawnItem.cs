@@ -14,7 +14,7 @@ public class SpawnItem : MonoBehaviour
 
 
     // Start is called before the first frame update
-    void Start() {
+    public void spawn() {
         popped = false;
         cnt = gates.GetComponent<PlaceLogic>().gateClones.Count;
         gates.transform.position = this.gameObject.transform.position;
@@ -31,6 +31,7 @@ public class SpawnItem : MonoBehaviour
             
             try {
                 nextOne.SetActive(true);
+                nextOne.GetComponent<SpawnItem>().spawn();
             }
             catch { }
 

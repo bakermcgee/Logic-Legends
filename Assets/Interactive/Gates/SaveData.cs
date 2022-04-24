@@ -59,4 +59,9 @@ public class SaveData : MonoBehaviour
 
     }
 
+    public void deleteName(string n) {
+        string path = Application.persistentDataPath + "/Circuits/" + n + ".lbc";
+        File.Delete(path);
+    }
+
 }

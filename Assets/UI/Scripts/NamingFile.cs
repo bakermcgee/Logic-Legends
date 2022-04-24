@@ -21,4 +21,10 @@ public class NamingFile : MonoBehaviour
 
     }
 
+    public void deleteFile() {
+
+        gates.GetComponent<SaveData>().deleteName(this.gameObject.GetComponent<TextMeshProUGUI>().text);
+    
+    }
+
 }
