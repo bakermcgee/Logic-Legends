@@ -1,10 +1,12 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Net.Mail;
 using UnityEngine;
 using Firebase;
 using Firebase.Auth;
-//using Firebase.Storage;
+using Firebase.Storage;
+using Firebase.Database;
 using TMPro;
 using UnityEngine.UI;
 using UnityEngine.Networking;
@@ -50,16 +52,23 @@ public class UserLogin : MonoBehaviour
     bool startedNew = false;
     bool authed = false;
 
+    public int localLvl;
+
     Firebase.Auth.FirebaseAuth auth;
     Firebase.Auth.FirebaseUser user;
+    DatabaseReference refer;
+
 
     //starts firebase and checks if user is already logged in
     void Awake() {
+        localLvl = PlayerPrefs.GetInt("TutorLevel");
         auth = Firebase.Auth.FirebaseAuth.DefaultInstance;
+        refer = FirebaseDatabase.DefaultInstance.RootReference;
         if (auth.CurrentUser != null) {
             user = auth.CurrentUser;
             authed = true;
             UpdateUI(true);
+            UpdateLvl();
         }
     }
 
@@ -71,6 +80,7 @@ public class UserLogin : MonoBehaviour
             if (startedNew && (auth.CurrentUser != null)) {
                 startedNew = false;
 
+                refer.Child("users").Child(user.UserId).Child("username").SetValueAsync(username);
                 Firebase.Auth.UserProfile profile = new Firebase.Auth.UserProfile {
                     DisplayName = username,
                 };
@@ -97,6 +107,7 @@ public class UserLogin : MonoBehaviour
                 authed = true;
                 startedAuth = false;
                 UpdateUI(true);
+                UpdateLvl();
 
             } else {
                 err2.GetComponent<TextMeshProUGUI>().text = "Login encountered an error: Enter a valid email and password combination.";
@@ -270,6 +281,7 @@ public class UserLogin : MonoBehaviour
         if (validInfo) {
             changeUser.SetActive(false);
 
+            refer.Child("users").Child(user.UserId).Child("username").SetValueAsync(username);
             Firebase.Auth.UserProfile profile = new Firebase.Auth.UserProfile {
                 DisplayName = username,
             };
@@ -286,6 +298,30 @@ public class UserLogin : MonoBehaviour
 
             });
         }
+    }
+
+    public void UpdateLvl() {
+
+        FirebaseDatabase.DefaultInstance
+            .GetReference(("/users/" + user.UserId + "/level"))
+            .GetValueAsync().ContinueWith(task => {
+                if (task.IsFaulted) {
+                    // Handle the error...
+                    Debug.Log("oops");
+                } else if (task.IsCompleted) {
+                    print(task.Result);
+                    DataSnapshot snapshot = task.Result;
+                    int dbLvl = Convert.ToInt32(snapshot.Value);
+                    
+                    print(localLvl +"");
+                    if (dbLvl > localLvl) {
+                        PlayerPrefs.SetInt("TutorLevel", dbLvl);
+                    } else {
+                        refer.Child("users").Child(user.UserId).Child("level").SetValueAsync(localLvl);
+                    }
+                }
+        });
+
     }
 
     //attempts to change the icon when called
