@@ -4,30 +4,51 @@ using System.Net.Mail;
 using UnityEngine;
 using Firebase;
 using Firebase.Auth;
+//using Firebase.Storage;
 using TMPro;
 using UnityEngine.UI;
+using UnityEngine.Networking;
 
 public class UserLogin : MonoBehaviour
 {
+    //sign up info
     public GameObject suEM;
     public GameObject suUN;
     public GameObject suPW;
     public GameObject suCF;
 
+    //login info
     public GameObject liEM;
     public GameObject liPW;
-
+    public GameObject newUser;
+    public GameObject newIcon;
+    
+    //error messages for sign up and sign in pages
     public GameObject err;
     public GameObject err2;
+    public GameObject err3;
+    //objects that will be toggled on successful submit
     public GameObject profileButton;
+    public GameObject loginBox;
+    public GameObject signUpBox;
+    public GameObject loginScreen;
+    public GameObject titleScn;
+    public GameObject particles;
+    public GameObject changeUser;
+    public GameObject profUN;
+    public GameObject profScn;
 
     private string email;
     private string username;
     private string password;
     private string confirmPW;
+    private string path;
+    public Image usrIcon;
+    public Image usrIcon2;
 
     bool startedAuth = false;
     bool startedNew = false;
+    bool authed = false;
 
     Firebase.Auth.FirebaseAuth auth;
     Firebase.Auth.FirebaseUser user;
@@ -37,13 +58,15 @@ public class UserLogin : MonoBehaviour
         auth = Firebase.Auth.FirebaseAuth.DefaultInstance;
         if (auth.CurrentUser != null) {
             user = auth.CurrentUser;
+            authed = true;
             UpdateUI(true);
         }
     }
 
     //checks each frame for authentication of user to update UI
     void Update() {
-
+        
+        //sets the username upon new account creation
         try {
             if (startedNew && (auth.CurrentUser != null)) {
                 startedNew = false;
@@ -66,29 +89,43 @@ public class UserLogin : MonoBehaviour
             }
         } catch { startedNew = true; startedAuth = true; }
 
+        //checks for a successful login and updates the UI if so
         if (startedAuth) {
             if (auth.CurrentUser != null) {
-                Debug.Log("works");
+
+                err2.GetComponent<TextMeshProUGUI>().text = "";
+                authed = true;
                 startedAuth = false;
-                ClearFields();
                 UpdateUI(true);
+
+            } else {
+                err2.GetComponent<TextMeshProUGUI>().text = "Login encountered an error: Enter a valid email and password combination.";
             }
         }
+
+        //checks to make sure the UI is completely updated
+        try {
+            if (authed && profileButton.transform.GetChild(1).gameObject
+                    .transform.GetChild(0).gameObject.GetComponent<TextMeshProUGUI>().text != user.DisplayName) {
+
+                UpdateUI(true);
+
+            }
+        }catch { }
 
     }
 
     //attempts to sign up a user for the first time when called
     public void SignUp() {
 
-        email = suEM.GetComponent<TextMeshProUGUI>().text;
-        username = suUN.GetComponent<TextMeshProUGUI>().text;
-        password = suPW.GetComponent<TextMeshProUGUI>().text;
-        confirmPW = suCF.GetComponent<TextMeshProUGUI>().text;
+        email = suEM.GetComponent<TMP_InputField>().text;
+        username = suUN.GetComponent<TMP_InputField>().text;
+        password = suPW.GetComponent<TMP_InputField>().text;
+        confirmPW = suCF.GetComponent<TMP_InputField>().text;
         startedNew = true;
         startedAuth = true;
 
         bool validInfo = true;
-        bool success = false;
 
         try {
             var eml = new MailAddress(email);
@@ -102,6 +139,16 @@ public class UserLogin : MonoBehaviour
             err.GetComponent<TextMeshProUGUI>().text = "Error: Username must be at least 5 characters in length.";
         }
 
+        if (validInfo && password.Contains(username)) {
+            validInfo = false;
+            err.GetComponent<TextMeshProUGUI>().text = "Error: Username and password must be unique.";
+        }
+
+        if (validInfo && password.Contains(email)) {
+            validInfo = false;
+            err.GetComponent<TextMeshProUGUI>().text = "Error: Email and password must be unique.";
+        }
+
         if (validInfo && !(password.Length > 7)) {
             validInfo = false;
             err.GetComponent<TextMeshProUGUI>().text = "Error: Password must be at least 8 characters in length.";
@@ -112,44 +159,20 @@ public class UserLogin : MonoBehaviour
             err.GetComponent<TextMeshProUGUI>().text = "Error: Passwords must match.";
         }
 
+        //attempts to create a new user if valid info is given
         if (validInfo) {
             auth.CreateUserWithEmailAndPasswordAsync(email, password).ContinueWith(task => {
                 if (task.IsCanceled) {
-                    err.GetComponent<TextMeshProUGUI>().text = ("CreateUserWithEmailAndPasswordAsync was canceled.");
+                    err.GetComponent<TextMeshProUGUI>().text = ("Sign up was canceled.");
                     return;
                 }
                 if (task.IsFaulted) {
-                    err.GetComponent<TextMeshProUGUI>().text = ("CreateUserWithEmailAndPasswordAsync encountered an error: " + task.Exception);
+                    err.GetComponent<TextMeshProUGUI>().text = ("Sign up encountered an error: " + task.Exception);
                     return;
                 }
 
-                // Firebase user has been created.
-                success = true;
                 user = task.Result;
             });
-            
-            /*if (success && (user != null)) {
-                Firebase.Auth.UserProfile profile = new Firebase.Auth.UserProfile {
-                    DisplayName = username,
-                };
-
-                user.UpdateUserProfileAsync(profile).ContinueWith(task => {
-                    if (task.IsCanceled) {
-                        err.GetComponent<TextMeshProUGUI>().text = ("UpdateUserProfileAsync was canceled.");
-                        return;
-                    }
-                    if (task.IsFaulted) {
-                        err.GetComponent<TextMeshProUGUI>().text = ("UpdateUserProfileAsync encountered an error: " + task.Exception);
-                        return;
-                    }
-
-                    
-                    print("User profile updated successfully.");
-                });
-
-                ClearFields();
-                UpdateUI(true);
-            }*/
 
         }
 
@@ -159,22 +182,21 @@ public class UserLogin : MonoBehaviour
     public void Login() {
 
         startedAuth = true;
-        email = liEM.GetComponent<TextMeshProUGUI>().text;
-        password = liPW.GetComponent<TextMeshProUGUI>().text;
+        email = liEM.GetComponent<TMP_InputField>().text;
+        print(liEM.GetComponent<TMP_InputField>().text);
+        password = liPW.GetComponent<TMP_InputField>().text;
 
         auth.SignInWithEmailAndPasswordAsync(email, password).ContinueWith(task => {
             if (task.IsCanceled) {
-                err.GetComponent<TextMeshProUGUI>().text = ("SignInWithEmailAndPasswordAsync was canceled.");
+                Debug.Log("Login was canceled.");
                 return;
             }
             if (task.IsFaulted) {
-                err.GetComponent<TextMeshProUGUI>().text = ("SignInWithEmailAndPasswordAsync encountered an error: " + task.Exception);
+                Debug.Log("Login error: " + task.Exception);
                 return;
             }
 
             user = task.Result;
-            Debug.LogFormat("User signed in successfully: {0} ({1})",
-                user.DisplayName, user.UserId);
             
         });
 
@@ -183,17 +205,18 @@ public class UserLogin : MonoBehaviour
     //signs out a user
     public void Logout() {
         auth.SignOut();
-        UpdateUI(false);
+        authed = false;
+        //UpdateUI(false);
     }
 
     //clears all text fields when called
     public void ClearFields() {
-        suEM.GetComponent<TextMeshProUGUI>().text = "";
-        suUN.GetComponent<TextMeshProUGUI>().text = "";
-        suPW.GetComponent<TextMeshProUGUI>().text = "";
-        suCF.GetComponent<TextMeshProUGUI>().text = "";
-        liEM.GetComponent<TextMeshProUGUI>().text = "";
-        liPW.GetComponent<TextMeshProUGUI>().text = "";
+        suEM.GetComponent<TMP_InputField>().text = "";
+        suUN.GetComponent<TMP_InputField>().text = "";
+        suPW.GetComponent<TMP_InputField>().text = "";
+        suCF.GetComponent<TMP_InputField>().text = "";
+        liEM.GetComponent<TMP_InputField>().text = "";
+        liPW.GetComponent<TMP_InputField>().text = "";
     }
 
 
@@ -202,12 +225,72 @@ public class UserLogin : MonoBehaviour
         if(loggedIn) {
             profileButton.transform.GetChild(0).gameObject.SetActive(false);
             profileButton.transform.GetChild(1).gameObject.SetActive(true);
-            profileButton.transform.GetChild(1).gameObject
-                .transform.GetChild(0).gameObject.GetComponent<TextMeshProUGUI>().text = user.DisplayName;
-            print(user.DisplayName);
+
+            profileButton.SetActive(true);
+            loginBox.SetActive(true);
+            signUpBox.SetActive(false);
+            loginScreen.SetActive(false);
+            titleScn.SetActive(true);
+            titleScn.transform.GetChild(1).gameObject.SetActive(true);
+            titleScn.transform.GetChild(2).gameObject.SetActive(true);
+            titleScn.transform.GetChild(3).gameObject.SetActive(true);
+            titleScn.transform.GetChild(4).gameObject.SetActive(true);
+            particles.SetActive(true);
+            profScn.SetActive(false);
+            ClearFields();
+
+            try {
+                profileButton.transform.GetChild(1).gameObject
+                    .transform.GetChild(0).gameObject.GetComponent<TextMeshProUGUI>().text = user.DisplayName;
+                profUN.GetComponent<TextMeshProUGUI>().text = user.DisplayName;
+            } catch { }
+            
+            
         } else {
             profileButton.transform.GetChild(0).gameObject.SetActive(true);
             profileButton.transform.GetChild(1).gameObject.SetActive(false);
         }
     }
+
+    //attempts to change the username when called
+    public void ChangeUsername() {
+        username = newUser.GetComponent<TMP_InputField>().text;
+        bool validInfo = true;
+
+        if (validInfo && !(username.Length > 4)) {
+            validInfo = false;
+            err3.GetComponent<TextMeshProUGUI>().text = "Error: Username must be at least 5 characters in length.";
+        }
+
+        if (validInfo && username == user.DisplayName) {
+            validInfo = false;
+            err3.GetComponent<TextMeshProUGUI>().text = "Error: New username must not match previous username.";
+        }
+
+        if (validInfo) {
+            changeUser.SetActive(false);
+
+            Firebase.Auth.UserProfile profile = new Firebase.Auth.UserProfile {
+                DisplayName = username,
+            };
+
+            user.UpdateUserProfileAsync(profile).ContinueWith(task => {
+                if (task.IsCanceled) {
+                    Debug.Log("UpdateUserProfileAsync was canceled.");
+                    return;
+                }
+                if (task.IsFaulted) {
+                    Debug.Log("UpdateUserProfileAsync encountered an error: " + task.Exception);
+                    return;
+                }
+
+            });
+        }
+    }
+
+    //attempts to change the icon when called
+    public void ChangeIcon() {
+        
+    }
+
 }

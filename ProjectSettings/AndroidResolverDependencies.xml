@@ -71,7 +71,7 @@
   </files>
   <settings>
     <setting name="androidAbis" value="armeabi-v7a" />
-    <setting name="bundleId" value="com.BakersBrigade.LogicLegends" />
+    <setting name="bundleId" value="com.BakerBrigade.LogicLegends" />
     <setting name="explodeAars" value="True" />
     <setting name="gradleBuildEnabled" value="True" />
     <setting name="gradlePropertiesTemplateEnabled" value="False" />

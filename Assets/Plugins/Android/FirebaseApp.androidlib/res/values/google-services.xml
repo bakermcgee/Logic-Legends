@@ -1,10 +1,11 @@
 <?xml version='1.0' encoding='utf-8'?>
-<resources xmlns:tools="http://schemas.android.com/tools" tools:keep="@string/gcm_defaultSenderId,@string/google_storage_bucket,@string/project_id,@string/google_api_key,@string/google_crash_reporting_api_key,@string/google_app_id,@string/default_web_client_id">
+<resources xmlns:tools="http://schemas.android.com/tools" tools:keep="@string/firebase_database_url,@string/gcm_defaultSenderId,@string/google_storage_bucket,@string/project_id,@string/google_api_key,@string/google_crash_reporting_api_key,@string/google_app_id,@string/default_web_client_id">
+  <string name="firebase_database_url" translatable="false">https://logiclegend-581c7-default-rtdb.firebaseio.com</string>
   <string name="gcm_defaultSenderId" translatable="false">29041962553</string>
   <string name="google_storage_bucket" translatable="false">logiclegend-581c7.appspot.com</string>
   <string name="project_id" translatable="false">logiclegend-581c7</string>
   <string name="google_api_key" translatable="false">AIzaSyCcbABm45gAputE1qUu5sRukb0P-ApQmXI</string>
   <string name="google_crash_reporting_api_key" translatable="false">AIzaSyCcbABm45gAputE1qUu5sRukb0P-ApQmXI</string>
-  <string name="google_app_id" translatable="false">1:29041962553:android:f05dfc5ef9222dae3e67e8</string>
+  <string name="google_app_id" translatable="false">1:29041962553:android:249011e331089c483e67e8</string>
   <string name="default_web_client_id" translatable="false">29041962553-ktokc0abint848if57ckpcgsa7c2smsv.apps.googleusercontent.com</string>
 </resources>

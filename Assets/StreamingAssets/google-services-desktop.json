@@ -1,15 +1,16 @@
 {
   "project_info": {
     "project_number": "29041962553",
+    "firebase_url": "https://logiclegend-581c7-default-rtdb.firebaseio.com",
     "project_id": "logiclegend-581c7",
     "storage_bucket": "logiclegend-581c7.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:29041962553:android:f05dfc5ef9222dae3e67e8",
+        "mobilesdk_app_id": "1:29041962553:android:249011e331089c483e67e8",
         "android_client_info": {
-          "package_name": "com.BakersBrigade.LogicLegends"
+          "package_name": "com.BakerBrigade.LogicLegends"
         }
       },
       "oauth_client": [
