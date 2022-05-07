@@ -1,6 +1,10 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Firebase;
+using Firebase.Auth;
+using Firebase.Storage;
+using Firebase.Database;
 using System.IO;
 using System.Linq;
 using TMPro;
@@ -12,9 +16,31 @@ public class SaveGUIController : MonoBehaviour
     public GameObject listBox;
     public GameObject boxClones;
     public GameObject pgTxt;
+    public string localPath;
     int cln = -1;
     string[] files;
     int page = 0;
+
+    Firebase.Auth.FirebaseAuth auth;
+    Firebase.Auth.FirebaseUser user;
+    FirebaseStorage storage;
+    StorageReference userRef;
+
+    DatabaseReference refer;
+
+    void Awake() {
+
+        auth = Firebase.Auth.FirebaseAuth.DefaultInstance;
+        refer = FirebaseDatabase.DefaultInstance.RootReference;
+        storage = FirebaseStorage.DefaultInstance;
+        
+
+        if (auth.CurrentUser != null) {
+            user = auth.CurrentUser;
+            //userRef = storage.GetReferenceFromUrl("gs://logiclegend-581c7.appspot.com/" + user.UserId + "/private-circuits");
+        }
+
+    }
 
     void Start() {
 
@@ -97,6 +123,10 @@ public class SaveGUIController : MonoBehaviour
 
     }
 
+    public void prepareCloud() { 
+
+    }
+
     void showPage() {
 
         int x = 0;
@@ -151,7 +181,34 @@ public class SaveGUIController : MonoBehaviour
         this.gameObject.SetActive(true);
 
     }
-    
+
+    public void showCloud() {
+
+        prepareCloud();
+        this.gameObject.SetActive(true);
+
+    }
+
+    public void uploadSave(string p) {
+
+        localPath = Application.persistentDataPath + "/Circuits/" + p + ".lbc";
+        userRef = storage.GetReferenceFromUrl("gs://logiclegend-581c7.appspot.com/" + user.UserId + "/private-circuits/" + p + ".lbc");
+        userRef.PutFileAsync(localPath)
+            .ContinueWith(task => {
+                if (task.IsFaulted || task.IsCanceled) {
+                 Debug.Log(task.Exception.ToString());
+                 // Uh-oh, an error occurred!
+             } else {
+                  // Metadata contains file metadata such as size, content-type, and download URL.
+                 StorageMetadata metadata = task.Result;
+                 string md5Hash = metadata.Md5Hash;
+                 Debug.Log("Finished uploading...");
+                 Debug.Log("md5 hash = " + md5Hash);
+             }
+         });
+
+    }
+
     public void exit() {
 
         foreach(Transform boxClone in boxClones.transform) Destroy(boxClone.gameObject);

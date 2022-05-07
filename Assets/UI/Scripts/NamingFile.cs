@@ -7,6 +7,7 @@ public class NamingFile : MonoBehaviour
 {
 
     public GameObject gates;
+    public GameObject sB;
 
     public void changeName() {
 
@@ -18,6 +19,12 @@ public class NamingFile : MonoBehaviour
     public void keepName() {
 
         gates.GetComponent<SaveData>().changeName(this.gameObject.GetComponent<TextMeshProUGUI>().text);
+
+    }
+
+    public void keepNameCloud() {
+
+        sB.GetComponent<SaveGUIController>().uploadSave(this.gameObject.GetComponent<TextMeshProUGUI>().text);
 
     }
 
