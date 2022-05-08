@@ -28,6 +28,12 @@ public class NamingFile : MonoBehaviour
 
     }
 
+    public void keepNameDown() {
+
+        sB.GetComponent<SaveGUIController>().downloadSave(this.gameObject.GetComponent<TextMeshProUGUI>().text);
+
+    }
+
     public void deleteFile() {
 
         gates.GetComponent<SaveData>().deleteName(this.gameObject.GetComponent<TextMeshProUGUI>().text);

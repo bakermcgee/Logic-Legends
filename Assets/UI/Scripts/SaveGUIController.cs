@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -20,6 +21,8 @@ public class SaveGUIController : MonoBehaviour
     int cln = -1;
     string[] files;
     int page = 0;
+    bool cloudStarted = false;
+    bool finishStarted = false;
 
     Firebase.Auth.FirebaseAuth auth;
     Firebase.Auth.FirebaseUser user;
@@ -37,7 +40,6 @@ public class SaveGUIController : MonoBehaviour
 
         if (auth.CurrentUser != null) {
             user = auth.CurrentUser;
-            //userRef = storage.GetReferenceFromUrl("gs://logiclegend-581c7.appspot.com/" + user.UserId + "/private-circuits");
         }
 
     }
@@ -49,6 +51,12 @@ public class SaveGUIController : MonoBehaviour
         pgTxt = this.transform.GetChild(2).gameObject
             .transform.GetChild(2).gameObject;
 
+    }
+
+    void Update() {
+        if (cloudStarted && !finishStarted) {
+            finishCloud();
+        }
     }
 
     public void prepareSaves() {
@@ -123,8 +131,92 @@ public class SaveGUIController : MonoBehaviour
 
     }
 
-    public void prepareCloud() { 
+    public void prepareCloud() {
 
+        if (auth.CurrentUser == null) {
+            listBox.transform.GetChild(3).gameObject
+            .GetComponent<TextMeshProUGUI>().text = "Login to view cloud saves...";
+        } else {
+            listBox.transform.GetChild(3).gameObject
+            .GetComponent<TextMeshProUGUI>().text = "No cloud saves found...";
+        }
+
+        try {
+            FirebaseDatabase.DefaultInstance
+                .GetReference(("/users/" + user.UserId + "/private-circuits"))
+                .GetValueAsync().ContinueWith(task => {
+                    if (task.IsFaulted) {
+                        Debug.Log("oops");
+                    } else if (task.IsCompleted) {
+                        
+                        DataSnapshot snapshot = task.Result;
+                        List<string> tmp = new List<string>();
+                        
+                        foreach (var child in snapshot.Children) {
+                            tmp.Add(child.Value.ToString()); 
+                        }
+
+                        files = tmp.ToArray();
+                        cloudStarted = true;
+                        //finishCloud();
+
+                    }
+                });
+        } catch { }
+    }
+
+    public void finishCloud() {
+        if (files.Length > 0) {
+            finishStarted = true;
+            listBox.transform.GetChild(3).gameObject.SetActive(false);
+            listBox.SetActive(false);
+            
+            int c = 0;
+            createClone();
+            foreach (string fln in files) {
+
+                if (c < 3) {
+                    print("b");
+                    GameObject lb = boxClones.transform.GetChild(cln).gameObject;
+
+                    lb.transform.GetChild(c).gameObject
+                        .transform.GetChild(0).gameObject
+                        .GetComponent<TextMeshProUGUI>().text = fln;
+
+                    lb.transform.GetChild(c).gameObject.SetActive(true);
+
+                    c++;
+
+                } else {
+                    print("c");
+                    createClone();
+                    GameObject lb = boxClones.transform.GetChild(cln).gameObject;
+
+                    lb.transform.GetChild(0).gameObject
+                        .transform.GetChild(0).gameObject
+                        .GetComponent<TextMeshProUGUI>().text = fln;
+
+                    lb.transform.GetChild(0).gameObject.SetActive(true);
+
+                    c = 1;
+
+                }
+
+
+            }
+
+            showPage();
+
+        } else {
+
+            listBox.SetActive(true);
+
+            listBox.transform.GetChild(3).gameObject
+                .SetActive(true);
+
+        }
+        finishStarted = false;
+        cloudStarted = false;
     }
 
     void showPage() {
@@ -193,19 +285,37 @@ public class SaveGUIController : MonoBehaviour
 
         localPath = Application.persistentDataPath + "/Circuits/" + p + ".lbc";
         userRef = storage.GetReferenceFromUrl("gs://logiclegend-581c7.appspot.com/" + user.UserId + "/private-circuits/" + p + ".lbc");
+
+        refer.Child("users").Child(user.UserId).Child("private-circuits").Child(p).SetValueAsync(p);
         userRef.PutFileAsync(localPath)
             .ContinueWith(task => {
                 if (task.IsFaulted || task.IsCanceled) {
                  Debug.Log(task.Exception.ToString());
-                 // Uh-oh, an error occurred!
-             } else {
-                  // Metadata contains file metadata such as size, content-type, and download URL.
+             } else {                 
                  StorageMetadata metadata = task.Result;
                  string md5Hash = metadata.Md5Hash;
                  Debug.Log("Finished uploading...");
                  Debug.Log("md5 hash = " + md5Hash);
              }
-         });
+        });
+
+    }
+
+    public void downloadSave(string p) {
+        localPath = Application.persistentDataPath + "/Circuits/" + p + ".lbc";
+        userRef = storage.GetReferenceFromUrl("gs://logiclegend-581c7.appspot.com/" + user.UserId + "/private-circuits/" + p + ".lbc");
+
+        userRef.GetFileAsync(localPath).ContinueWith(task => {
+            if (!task.IsFaulted && !task.IsCanceled) {
+                Debug.Log("File downloaded.");
+            }
+        });
+    }
+
+    public void reset() {
+
+        foreach (Transform boxClone in boxClones.transform) Destroy(boxClone.gameObject);
+        cln = -1;
 
     }
 
@@ -216,4 +326,5 @@ public class SaveGUIController : MonoBehaviour
         this.gameObject.SetActive(false);
 
     }
+
 }
