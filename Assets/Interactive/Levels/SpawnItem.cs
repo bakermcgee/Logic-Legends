@@ -12,8 +12,6 @@ public class SpawnItem : MonoBehaviour
     int cnt;
     bool popped;
 
-
-    // Start is called before the first frame update
     public void spawn() {
         popped = false;
         cnt = gates.GetComponent<PlaceLogic>().gateClones.Count;

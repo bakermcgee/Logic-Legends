@@ -316,6 +316,7 @@ public class UserLogin : MonoBehaviour
                     print(localLvl +"");
                     if (dbLvl > localLvl) {
                         PlayerPrefs.SetInt("TutorLevel", dbLvl);
+                        PlayerPrefs.Save();
                     } else {
                         refer.Child("users").Child(user.UserId).Child("level").SetValueAsync(localLvl);
                     }

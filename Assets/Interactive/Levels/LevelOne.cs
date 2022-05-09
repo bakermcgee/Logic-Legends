@@ -127,6 +127,9 @@ public class LevelOne : MonoBehaviour
         gates.GetComponent<PlaceLogic>().ClearScreen();
         tbB.SetActive(false);
         circuit2.SetActive(false);
+
+        PlayerPrefs.SetInt("TutorLevel", 2);
+        PlayerPrefs.Save();
         this.gameObject.transform.GetChild(7).gameObject.SetActive(true);
     }
 
