@@ -306,20 +306,23 @@ public class UserLogin : MonoBehaviour
             .GetReference(("/users/" + user.UserId + "/level"))
             .GetValueAsync().ContinueWith(task => {
                 if (task.IsFaulted) {
-                    // Handle the error...
+                    
                     Debug.Log("oops");
+
                 } else if (task.IsCompleted) {
-                    print(task.Result);
+
+                    //print(task.Result);
                     DataSnapshot snapshot = task.Result;
                     int dbLvl = Convert.ToInt32(snapshot.Value);
                     
-                    print(localLvl +"");
+                    //print(localLvl +"");
                     if (dbLvl > localLvl) {
                         PlayerPrefs.SetInt("TutorLevel", dbLvl);
                         PlayerPrefs.Save();
                     } else {
                         refer.Child("users").Child(user.UserId).Child("level").SetValueAsync(localLvl);
                     }
+
                 }
         });
 

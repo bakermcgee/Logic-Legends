@@ -29,11 +29,6 @@ public class LevelTwo : MonoBehaviour {
     public GameObject pointA;
     public GameObject pointB;
 
-    // Start sets up variable defaults
-    /*void Start() {
-        restart();
-    }*/
-
     // Update checks for which lvlState the player is on
     void Update() {
 
@@ -64,7 +59,6 @@ public class LevelTwo : MonoBehaviour {
 
             case 1:
                 if (gates.GetComponent<PlaceLogic>().gateClones.Count > 4) {
-                    //this.gameObject.transform.GetChild(1).gameObject.SetActive(false);
                     grd1 = gates.GetComponent<PlaceLogic>().gateClones[0];
                     bat1 = gates.GetComponent<PlaceLogic>().gateClones[1];
                     bat2 = gates.GetComponent<PlaceLogic>().gateClones[2];
@@ -83,6 +77,7 @@ public class LevelTwo : MonoBehaviour {
                     pointB = grd1.transform.GetChild(1).gameObject;
                     connectWire();
 
+                    tbA.SetActive(true);
                     ToDrawing();
                 }
                 break;
@@ -104,11 +99,6 @@ public class LevelTwo : MonoBehaviour {
                 break;
 
             case 4:
-                /*if (gates.GetComponent<PlaceLogic>().gateClones[1].transform.GetChild(3)
-                    .gameObject.GetComponent<SpriteRenderer>().color == new Color(1f, 0.984f, 0.447f, 1f)) {
-                    this.gameObject.transform.GetChild(6).gameObject.SetActive(false);
-                    //ToOr();
-                }*/
                 if (gates.GetComponent<PlaceLogic>().gateClones.Count > 2) {
                     lit1 = gates.GetComponent<PlaceLogic>().gateClones[0];
                     inv1 = gates.GetComponent<PlaceLogic>().gateClones[2];
@@ -127,13 +117,6 @@ public class LevelTwo : MonoBehaviour {
                 break;
 
             case 5:
-                /*try {
-                    if (gates.GetComponent<PlaceLogic>().gateClones[3].transform.GetChild(3)
-                        .gameObject.GetComponent<SpriteRenderer>().color == new Color(1f, 0.984f, 0.447f, 1f)) {
-                        this.gameObject.transform.GetChild(5).gameObject.SetActive(false);
-                        ToSuccessB();
-                    }
-                } catch { }*/
                 if (lit1.transform.GetChild(1)
                     .gameObject.GetComponent<SpriteRenderer>().color == new Color(1f, 0.984f, 0.447f, 1f)) {
                     this.gameObject.transform.GetChild(6).gameObject.SetActive(false);
@@ -156,8 +139,6 @@ public class LevelTwo : MonoBehaviour {
                     bat2 = gates.GetComponent<PlaceLogic>().gateClones[2];
                     tmr1 = gates.GetComponent<PlaceLogic>().gateClones[3];
                     tmr1.GetComponent<GateBehavior>().goal = 2;
-                    //tmr1.transform.GetChild(5).gameObject.GetComponent<TextMeshProUGUI>().text = "2";
-                    //tmr1.transform.GetChild(6).gameObject.SetActive(false);
                     nod1 = gates.GetComponent<PlaceLogic>().gateClones[4];
                     and1 = gates.GetComponent<PlaceLogic>().gateClones[5];
 
@@ -177,6 +158,7 @@ public class LevelTwo : MonoBehaviour {
                     pointB = tmr1.transform.GetChild(1).gameObject;
                     connectWire();
 
+                    tbB.SetActive(true);
                     this.gameObject.transform.GetChild(8).gameObject.SetActive(true);
                     lvlState = 8;
                 }
@@ -201,13 +183,11 @@ public class LevelTwo : MonoBehaviour {
 
     void ToDrawing() {
         lvlState = 2;
-        //blockers.transform.GetChild(3).gameObject.SetActive(true);
         blockers.transform.GetChild(0).gameObject.SetActive(false);
         blockers.transform.GetChild(5).gameObject.SetActive(false);
         blockers.transform.GetChild(6).gameObject.SetActive(false);
         blockers.transform.GetChild(8).gameObject.SetActive(false);
         blockers.transform.GetChild(9).gameObject.SetActive(false);
-        //this.gameObject.transform.GetChild(2).gameObject.SetActive(true);
     }
 
     void ToSuccessA() {
@@ -218,11 +198,10 @@ public class LevelTwo : MonoBehaviour {
     public void ToNode() {
         gates.GetComponent<PlaceLogic>().ClearScreen();
         circuit1.SetActive(false);
-        //tbA.SetActive(false);
         circuit2.SetActive(true);
         circuit2.transform.GetChild(0).gameObject.GetComponent<SpawnItem>().spawn();
-        //tbB.SetActive(true);
         blockers.transform.GetChild(3).gameObject.SetActive(false);
+        
     }
 
     void ToInverter(){
@@ -234,7 +213,7 @@ public class LevelTwo : MonoBehaviour {
         circuit3.SetActive(true);
         circuit3.transform.GetChild(0).gameObject.GetComponent<SpawnItem>().spawn();
 
-        tbB.SetActive(true);
+        
     }
 
     void ToInverter2() {
@@ -242,6 +221,7 @@ public class LevelTwo : MonoBehaviour {
         gates.GetComponent<PlaceLogic>().ClearScreen();
         circuit3.SetActive(false);
 
+        
         circuit4.SetActive(true);
         circuit4.transform.GetChild(0).gameObject.GetComponent<SpawnItem>().spawn();
 
@@ -267,7 +247,6 @@ public class LevelTwo : MonoBehaviour {
         circuit1.transform.GetChild(1).gameObject.SetActive(false);
         circuit1.transform.GetChild(2).gameObject.SetActive(false);
         circuit1.transform.GetChild(0).gameObject.GetComponent<SpawnItem>().spawn();
-        tbA.SetActive(true);
 
         circuit2.SetActive(false);
         circuit2.transform.GetChild(1).gameObject.SetActive(false);
