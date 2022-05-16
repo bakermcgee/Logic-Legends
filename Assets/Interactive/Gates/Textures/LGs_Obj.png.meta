@@ -376,9 +376,9 @@ TextureImporter:
       name: LGs_Obj_10
       rect:
         serializedVersion: 2
-        x: 521
+        x: 510
         y: 260
-        width: 108
+        width: 130
         height: 73
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
@@ -481,9 +481,9 @@ TextureImporter:
       name: LGs_Obj_15
       rect:
         serializedVersion: 2
-        x: 74
-        y: 79
-        width: 108
+        x: 51
+        y: 89
+        width: 130
         height: 73
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
@@ -570,7 +570,7 @@ TextureImporter:
         width: 150
         height: 152
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
