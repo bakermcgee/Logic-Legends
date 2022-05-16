@@ -153,8 +153,15 @@ public class LevelZero : MonoBehaviour
     public void ToEnd() {
 
         lvlState = 8;
-        PlayerPrefs.SetInt("TutorLevel", 1);
-        PlayerPrefs.Save();
+        try {
+            if (PlayerPrefs.GetInt("TutorLevel") < 1) {
+                PlayerPrefs.SetInt("TutorLevel", 1);
+                PlayerPrefs.Save();
+            }
+        } catch {
+            PlayerPrefs.SetInt("TutorLevel", 1);
+            PlayerPrefs.Save();
+        }
         this.gameObject.transform.GetChild(9).gameObject.SetActive(true);
         cam.transform.position = new Vector3(0, 0, -10);
         tb.SetActive(false);

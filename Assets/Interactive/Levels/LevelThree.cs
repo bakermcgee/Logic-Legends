@@ -236,8 +236,10 @@ public class LevelThree : MonoBehaviour
         tbB.SetActive(false);
         circuit4.SetActive(false);
 
-        PlayerPrefs.SetInt("TutorLevel", 4);
-        PlayerPrefs.Save();
+        if (PlayerPrefs.GetInt("TutorLevel") < 4) {
+            PlayerPrefs.SetInt("TutorLevel", 4);
+            PlayerPrefs.Save();
+        }
         this.gameObject.transform.GetChild(8).gameObject.SetActive(false);
         this.gameObject.transform.GetChild(9).gameObject.SetActive(true);
     }

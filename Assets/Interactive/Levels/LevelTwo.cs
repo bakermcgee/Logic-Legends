@@ -139,6 +139,7 @@ public class LevelTwo : MonoBehaviour {
                     bat2 = gates.GetComponent<PlaceLogic>().gateClones[2];
                     tmr1 = gates.GetComponent<PlaceLogic>().gateClones[3];
                     tmr1.GetComponent<GateBehavior>().goal = 2;
+                    tmr1.transform.GetChild(5).gameObject.GetComponent<TMP_Text>().text = "2";
                     nod1 = gates.GetComponent<PlaceLogic>().gateClones[4];
                     and1 = gates.GetComponent<PlaceLogic>().gateClones[5];
 
@@ -232,8 +233,10 @@ public class LevelTwo : MonoBehaviour {
         tbB.SetActive(false);
         circuit4.SetActive(false);
 
-        PlayerPrefs.SetInt("TutorLevel", 3);
-        PlayerPrefs.Save();
+        if (PlayerPrefs.GetInt("TutorLevel") < 3) {
+            PlayerPrefs.SetInt("TutorLevel", 3);
+            PlayerPrefs.Save();
+        }
         this.gameObject.transform.GetChild(9).gameObject.SetActive(false);
         this.gameObject.transform.GetChild(10).gameObject.SetActive(true);
     }

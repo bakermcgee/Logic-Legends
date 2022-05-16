@@ -113,8 +113,10 @@ public class LevelOne : MonoBehaviour
         tbB.SetActive(false);
         circuit2.SetActive(false);
 
-        PlayerPrefs.SetInt("TutorLevel", 2);
-        PlayerPrefs.Save();
+        if (PlayerPrefs.GetInt("TutorLevel") < 2) {
+            PlayerPrefs.SetInt("TutorLevel", 2);
+            PlayerPrefs.Save();
+        }
         this.gameObject.transform.GetChild(7).gameObject.SetActive(true);
     }
 
