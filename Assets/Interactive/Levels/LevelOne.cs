@@ -14,25 +14,10 @@ public class LevelOne : MonoBehaviour
     public GameObject tbA;
     public GameObject tbB;
 
-    // Start sets up variable defaults
-    /*void Start() {
-        lvlState = 0;
-        this.gameObject.transform.GetChild(1).gameObject.SetActive(true);
-        blockers.transform.GetChild(3).gameObject.SetActive(false);
-        lvl1.SetActive(true);
-        circuit1.SetActive(true);
-        circuit1.transform.GetChild(1).gameObject.SetActive(false);
-        circuit1.transform.GetChild(2).gameObject.SetActive(false);
-        tbA.SetActive(true);
-        circuit2.SetActive(false);
-        circuit2.transform.GetChild(1).gameObject.SetActive(false);
-        circuit2.transform.GetChild(2).gameObject.SetActive(false);
-        tbB.SetActive(false);
-    }*/
-
     // Update checks for which lvlState the player is on
     void Update() {
 
+        // this switch works similar to a FSM; when the conditions are met within a level, move to the next state
         switch (lvlState) {
 
             case 0:

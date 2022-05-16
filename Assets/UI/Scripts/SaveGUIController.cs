@@ -17,9 +17,12 @@ public class SaveGUIController : MonoBehaviour
     public GameObject listBox;
     public GameObject boxClones;
     public GameObject pgTxt;
+    public GameObject sMsg;
     public string localPath;
     int cln = -1;
     string[] files;
+    string ntxta;
+    string ntxtb;
     int page = 0;
     bool cloudStarted = false;
     bool finishStarted = false;
@@ -56,6 +59,12 @@ public class SaveGUIController : MonoBehaviour
     void Update() {
         if (cloudStarted && !finishStarted) {
             finishCloud();
+        }
+
+        if(ntxta != ntxtb) {
+            sMsg.GetComponent<TMP_Text>().text = ntxta;
+            ntxtb = ntxta;
+            localPath = null;
         }
     }
 
@@ -290,14 +299,16 @@ public class SaveGUIController : MonoBehaviour
         userRef.PutFileAsync(localPath)
             .ContinueWith(task => {
                 if (task.IsFaulted || task.IsCanceled) {
-                 Debug.Log(task.Exception.ToString());
-             } else {                 
-                 StorageMetadata metadata = task.Result;
-                 string md5Hash = metadata.Md5Hash;
-                 Debug.Log("Finished uploading...");
-                 Debug.Log("md5 hash = " + md5Hash);
-             }
-        });
+                    Debug.Log(task.Exception.ToString());
+                } else {                 
+                    //StorageMetadata metadata = task.Result;
+                    //string md5Hash = metadata.Md5Hash;
+                    Debug.Log("Finished uploading...");                   
+                    //Debug.Log("md5 hash = " + md5Hash);
+                    ntxta = "Upload complete. Check cloud page to download.";
+                    localPath = null;
+                }
+            });
 
     }
 
@@ -308,8 +319,18 @@ public class SaveGUIController : MonoBehaviour
         userRef.GetFileAsync(localPath).ContinueWith(task => {
             if (!task.IsFaulted && !task.IsCanceled) {
                 Debug.Log("File downloaded.");
+                ntxta = "Download complete. Check local page to use.";
+                localPath = null;
             }
         });
+    }
+
+    public void deleteCloudSave(string p) {
+
+        userRef = storage.GetReferenceFromUrl("gs://logiclegend-581c7.appspot.com/" + user.UserId + "/private-circuits/" + p + ".lbc");
+        refer.Child("users").Child(user.UserId).Child("private-circuits").Child(p).RemoveValueAsync();
+        userRef.DeleteAsync();
+
     }
 
     public void reset() {
@@ -321,7 +342,8 @@ public class SaveGUIController : MonoBehaviour
 
     public void exit() {
 
-        foreach(Transform boxClone in boxClones.transform) Destroy(boxClone.gameObject);
+        ntxta = "";
+        foreach (Transform boxClone in boxClones.transform) Destroy(boxClone.gameObject);
         cln = -1;
         this.gameObject.SetActive(false);
 

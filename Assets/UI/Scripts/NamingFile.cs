@@ -40,4 +40,10 @@ public class NamingFile : MonoBehaviour
     
     }
 
+    public void deleteCloudFile() {
+
+        sB.GetComponent<SaveGUIController>().deleteCloudSave(this.gameObject.GetComponent<TextMeshProUGUI>().text);
+
+    }
+
 }
