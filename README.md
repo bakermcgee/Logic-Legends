@@ -27,5 +27,12 @@ Academy Preview:
 Help Screen Preview:
 ![Screenshot_20220809-125522](https://user-images.githubusercontent.com/26748231/183714137-5a718721-aaa6-494e-b219-9ff982417579.png)
 
+## Credits
+- Backend Code: Fritzpatrick Leroy, Joshua Cardona
+- Frontend Design: Fritzpatrick Leroy, Steven DiResta
+- UI Assets: Steven DiResta
+- Database Implementation: Emily Lopez, Fritzpatrick Leroy, Hailey Maier
+- Level Design: David Erfanian, Fritzpatrick Leroy, Hailey Maier, Joshua Cardona 
+- Research/Documentation: David Erfanian, Emily Lopez, Steven DiResta
 
 
